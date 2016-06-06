@@ -28,3 +28,9 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+license_3rdpartynotice.txt
+link.xml
+/Plugins
+readme_SDK.txt
+/Vuforia
