@@ -27,11 +27,10 @@ public class MainController : MonoBehaviour
         //Debug.Log(MainManager.Instance.axeNumber);
 
         
-        moleculeInstantiate = Instantiate(moleculePrefabs[MainManager.Instance.axeNumber], transform.position, Quaternion.identity) as GameObject;
+        moleculeInstantiate = Instantiate(moleculePrefabs[MainManager.Instance.axeNumber], 
+            new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z),
+            Quaternion.identity) as GameObject;
         moleculeInstantiate.transform.parent = imageTarget.transform;
-        moleculeInstantiate.transform.position = new Vector3(imageTarget.transform.position.x,
-                                                            imageTarget.transform.position.y + 5f,
-                                                            imageTarget.transform.position.z);
         //MainManager.Instance.ARCam.SetActive(true);
     }
 
