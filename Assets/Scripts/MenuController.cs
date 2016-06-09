@@ -16,7 +16,7 @@ public class MenuController : MonoBehaviour {
 
     private void initManager()
     {
-        DontDestroyOnLoad(MainManager.Instance.gameObject);
+        //DontDestroyOnLoad(MainManager.Instance.gameObject);
     }
 
     private void SetButton()
@@ -31,7 +31,7 @@ public class MenuController : MonoBehaviour {
     private void OnClickAXE(int axeNumber)
     {
         //Debug.Log(axeNumber);
-        MainManager.Instance.axeNumber = axeNumber;
+        //MainManager.Instance.axeNumber = axeNumber;
         SceneManager.LoadScene("main");
     }
 }
