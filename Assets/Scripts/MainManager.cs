@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainManager : MonoBehaviour {
+public class MainManager : MonoBehaviour
+{
 
     private static MainManager _instance;
-    public int axeNumber;
+    public int axeNumber = 0;
+    //public GameObject ARCam;
 
     public static MainManager Instance
     {
@@ -17,5 +19,12 @@ public class MainManager : MonoBehaviour {
 
             return _instance;
         }
+    }
+
+    public void Start()
+    {
+       // ARCam = GameObject.FindGameObjectWithTag("ARCam");
+        //DontDestroyOnLoad(ARCam);
+       // ARCam.SetActive(false);
     }
 }
