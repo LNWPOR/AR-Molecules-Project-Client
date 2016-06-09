@@ -6,6 +6,8 @@ public class MainManager : MonoBehaviour
 
     private static MainManager _instance;
     public int axeNumber = 0;
+    public string axeName = "AX2E0";
+
     //public GameObject ARCam;
 
     public static MainManager Instance
