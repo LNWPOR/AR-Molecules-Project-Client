@@ -8,8 +8,6 @@ public class MainManager : MonoBehaviour
     public int axeNumber = 0;
     public string axeName = "AX2E0";
 
-    //public GameObject ARCam;
-
     public static MainManager Instance
     {
         get
@@ -23,10 +21,4 @@ public class MainManager : MonoBehaviour
         }
     }
 
-    public void Start()
-    {
-       // ARCam = GameObject.FindGameObjectWithTag("ARCam");
-        //DontDestroyOnLoad(ARCam);
-       // ARCam.SetActive(false);
-    }
 }

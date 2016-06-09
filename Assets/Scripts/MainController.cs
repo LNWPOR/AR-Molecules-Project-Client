@@ -16,12 +16,10 @@ public class MainController : MonoBehaviour
     void Awake()
     {
         homeBtn.onClick.AddListener(() => OnClickHome());
-        //homeBtn.onClick.AddListener(OnClickHome);
     }
 
     void Start()
     {
-
         InitMolecule();
         SetUIText();
     }

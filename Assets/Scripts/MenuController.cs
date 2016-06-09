@@ -30,7 +30,6 @@ public class MenuController : MonoBehaviour {
 
     private void OnClickAXE(int axeNumber , string axeName)
     {
-        //Debug.Log(axeNumber);
         MainManager.Instance.axeNumber = axeNumber;
         MainManager.Instance.axeName = axeName;
         SceneManager.LoadScene("main");
