@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
 public class MainManager : MonoBehaviour
 {
 
     private static MainManager _instance;
-    public int axeNumber = 0;
-    public string axeName = "AX2E0";
+    //public int axeNumber = 0;
+    //public string axeName = "AX2E0";
+
+    public MoleculeData moleculeSelected;
+    public List<MoleculeData> moleculeList;
 
     public static MainManager Instance
     {
@@ -21,4 +26,19 @@ public class MainManager : MonoBehaviour
         }
     }
 
+    public void Awake()
+    {
+        moleculeList = new List<MoleculeData>();
+        AddMoleculeToList("BeCl2");
+        AddMoleculeToList("SO3");
+        AddMoleculeToList("CH4");
+        AddMoleculeToList("PCl5");
+        AddMoleculeToList("SF6");
+    }
+
+    private void AddMoleculeToList(string newName)
+    {
+        MoleculeData molecule = new MoleculeData(newName);
+        moleculeList.Add(molecule);
+    }
 }
