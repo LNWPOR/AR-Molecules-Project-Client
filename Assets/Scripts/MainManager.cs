@@ -34,6 +34,11 @@ public class MainManager : MonoBehaviour
         AddMoleculeToList("CH4");
         AddMoleculeToList("PCl5");
         AddMoleculeToList("SF6");
+		AddMoleculeToList("Cl2");
+		AddMoleculeToList("SF4");
+		AddMoleculeToList("XeF4");
+		AddMoleculeToList("ClF5");
+		AddMoleculeToList("IF7");
     }
 
     private void AddMoleculeToList(string newName)
