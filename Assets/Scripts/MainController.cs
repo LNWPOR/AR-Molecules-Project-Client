@@ -10,22 +10,22 @@ public class MainController : MonoBehaviour
     public GameObject[] moleculePrefabs;
     private GameObject moleculePrefabsSelected;
     private GameObject moleculeInstantiate;
-    //public Button homeBtn;
-    //public Text moleculeNameText;
+    public Button backBtn;
+    public Text moleculeNameText;
     //public Text axeNameText;
 
     void Awake()
     {
-        //homeBtn.onClick.AddListener(() => OnClickHome());
+        backBtn.onClick.AddListener(() => OnClickBack());
     }
 
     void Start()
     {
         InitMolecule();
-        //SetUIText();   
+        SetUIText();   
     }
 
-    private void OnClickHome()
+    private void OnClickBack()
     {
         SceneManager.LoadScene("menu");
     }
@@ -40,9 +40,9 @@ public class MainController : MonoBehaviour
         moleculeInstantiate.transform.parent = imageTarget.transform;
     }
 
-    //private void SetUIText()
-    //{
-        //moleculeNameText.text = moleculeInstantiate.name;
+    private void SetUIText()
+    {
+        moleculeNameText.text = moleculeInstantiate.name;
         //axeNameText.text = MainManager.Instance.axeName;
-    //}
+    }
 }

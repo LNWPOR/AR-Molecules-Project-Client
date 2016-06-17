@@ -26,7 +26,7 @@ public class MainManager : MonoBehaviour
         }
     }
 
-    public void Awake()
+    public void Start()
     {
         moleculeList = new List<MoleculeData>();
         AddMoleculeToList("BeCl2");
