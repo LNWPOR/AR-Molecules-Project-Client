@@ -9,7 +9,7 @@ public class NewButtonController : MonoBehaviour {
     public string moleculeName;
 	// Use this for initialization
 	void Start () {
-        GetComponentsInChildren<Text>()[0].text = moleculeName;
+        GetComponentsInChildren<Text>()[0].text = " " + moleculeName;
     }
 	
     public void onClickThisMoleculeName()

@@ -59,7 +59,7 @@ public class WordSearch : MonoBehaviour
             if (newButtonList.Count <= maxNewButtonTotal)
             {
                 Button newButton = Instantiate(newButtonPrefab,
-                new Vector3(menuCanvas.transform.position.x, menuCanvas.transform.position.y - 25f * i, menuCanvas.transform.position.z),
+                new Vector3(menuCanvas.transform.position.x + 5f, menuCanvas.transform.position.y + 70f - 30f - (25f * i), menuCanvas.transform.position.z),
                 Quaternion.identity) as Button;
 
                 newButton.transform.parent = menuCanvas.transform;
