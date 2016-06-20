@@ -10,7 +10,7 @@ public class WordSearch : MonoBehaviour
     public bool caseSensetive;
     public bool restrictUserInput;
     public Button newButtonPrefab;
-    public Canvas menuCanvas;
+    public GameObject menuPanel;
     ArrayList possibleWords;
     private List<Button> newButtonList;
     private int maxNewButtonTotal = 5;
@@ -59,10 +59,11 @@ public class WordSearch : MonoBehaviour
             if (newButtonList.Count <= maxNewButtonTotal)
             {
                 Button newButton = Instantiate(newButtonPrefab,
-                new Vector3(menuCanvas.transform.position.x + 5f, menuCanvas.transform.position.y + 70f - 30f - (25f * i), menuCanvas.transform.position.z),
+                new Vector3(inputField.transform.position.x, inputField.transform.position.y - 9.625f - (9.625f * i), inputField.transform.position.z),
                 Quaternion.identity) as Button;
 
-                newButton.transform.parent = menuCanvas.transform;
+                newButton.transform.parent = menuPanel.transform;
+                newButton.transform.localScale = new Vector3(1f, 1f, 1f);
                 NewButtonController newButtonControllerScript = newButton.GetComponent<NewButtonController>();
                 newButtonControllerScript.moleculeName = MainManager.Instance.moleculeList[(int)possibleWords[i]].name;
                 //newButton.GetComponentsInChildren<Text>()[0].text = MainManager.Instance.moleculeList[(int)possibleWords[i]].name;
