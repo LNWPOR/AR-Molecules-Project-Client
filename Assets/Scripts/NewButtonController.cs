@@ -15,7 +15,7 @@ public class NewButtonController : MonoBehaviour {
     public void onClickThisMoleculeName()
     {
         //Debug.Log(moleculeName);
-        MainManager.Instance.moleculeSelected = MainManager.Instance.moleculeList.Find(x => x.name.Contains(moleculeName));
+        MainManager.Instance.moleculeSelected = MainManager.Instance.moleculeList.Find(x => x.name.Equals(moleculeName));
         SceneManager.LoadScene("main");
     }
 

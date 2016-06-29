@@ -16,7 +16,6 @@ public class PeriodicTableManager : MonoBehaviour {
             {
                 _instance = new GameObject("_PeriodicTableManager").AddComponent<PeriodicTableManager>();
             }
-
             return _instance;
         }
     }
