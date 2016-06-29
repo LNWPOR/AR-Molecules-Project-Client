@@ -8,8 +8,6 @@ using System;
 
 public class SignInController : MonoBehaviour
 {
-
-    
     public InputField usernameInputField;
     public InputField passwordInputField;
     public Button signIpBtn;

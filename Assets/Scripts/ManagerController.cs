@@ -9,6 +9,7 @@ public class ManagerController : MonoBehaviour {
         DontDestroyOnLoad(NetworkManager.Instance.Socket);
         DontDestroyOnLoad(UserManager.Instance.gameObject);
         DontDestroyOnLoad(MainManager.Instance.gameObject);
+        DontDestroyOnLoad(PeriodicTableManager.Instance.gameObject);
     }
 	
 }
