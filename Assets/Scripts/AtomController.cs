@@ -6,7 +6,7 @@ public class AtomController : MonoBehaviour {
     private Vector3 rotateCenter;
 	// Use this for initialization
 	void Start () {
-        rotateCenter = new Vector3(transform.position.x -2f,
+        rotateCenter = new Vector3(transform.position.x -1f,
                                    transform.position.y,
                                    transform.position.z);
 
