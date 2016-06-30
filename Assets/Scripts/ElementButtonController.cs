@@ -5,12 +5,13 @@ using System;
 
 public class ElementButtonController : MonoBehaviour {
 
-    ElementData elementForButton;
-    GameObject periodicTableControllerGameObject;
-    PeriodicTableController periodicTableControllerScript;
+    private ElementData elementForButton;
+    private GameObject periodicTableController;
+    private PeriodicTableController periodicTableControllerScript;
     // Use this for initialization
     void Start()
     {
+        GetPeriodicTableController();
         InitButtonElementInfo();
     }
 
@@ -19,10 +20,14 @@ public class ElementButtonController : MonoBehaviour {
         ChangeColorDefault();
     }
 
+    private void GetPeriodicTableController()
+    {
+        periodicTableController = GameObject.Find("PeriodicTableController");
+        periodicTableControllerScript = periodicTableController.GetComponent<PeriodicTableController>();
+    }
+
     private void InitButtonElementInfo()
     {
-        periodicTableControllerGameObject = GameObject.Find("PeriodicTableController");
-        periodicTableControllerScript = periodicTableControllerGameObject.GetComponent<PeriodicTableController>();
         if (PeriodicTableManager.Instance.periodicTableList.Exists(x => x.name.Equals(gameObject.name)))
         {
             elementForButton = PeriodicTableManager.Instance.periodicTableList.Find(x => x.name.Equals(gameObject.name));
@@ -34,6 +39,10 @@ public class ElementButtonController : MonoBehaviour {
     private void ChangeColorDefault()
     {
         GameObject elementPrefabInitiated = periodicTableControllerScript.getElementPrefabInitiated();
+        if (elementPrefabInitiated == null)
+        {
+            gameObject.GetComponent<Button>().image.color = Color.white;
+        }
         if (elementPrefabInitiated != null && elementPrefabInitiated.name != gameObject.name)
         {
             gameObject.GetComponent<Button>().image.color = Color.white;
