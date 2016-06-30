@@ -81,5 +81,6 @@ public class ElementButtonController : MonoBehaviour {
                                                 Quaternion.identity) as GameObject;
         newElementPrefabInitiated.name = elementForButton.name;
         periodicTableControllerScript.setElementPrefabInitiated(newElementPrefabInitiated);
+        periodicTableControllerScript.SetElementDetailPanelText(elementForButton);
     }
 }
