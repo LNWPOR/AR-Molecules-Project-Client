@@ -11,6 +11,16 @@ public class ElementButtonController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        InitButtonElementInfo();
+    }
+
+    void Update()
+    {
+        ChangeColorDefault();
+    }
+
+    private void InitButtonElementInfo()
+    {
         periodicTableControllerGameObject = GameObject.Find("PeriodicTableController");
         periodicTableControllerScript = periodicTableControllerGameObject.GetComponent<PeriodicTableController>();
         if (PeriodicTableManager.Instance.periodicTableList.Exists(x => x.name.Equals(gameObject.name)))
@@ -21,9 +31,18 @@ public class ElementButtonController : MonoBehaviour {
         }
     }
 
+    private void ChangeColorDefault()
+    {
+        GameObject elementPrefabInitiated = periodicTableControllerScript.getElementPrefabInitiated();
+        if (elementPrefabInitiated != null && elementPrefabInitiated.name != gameObject.name)
+        {
+            gameObject.GetComponent<Button>().image.color = Color.white;
+        }
+    }
+
     public void OnClickElementButton()
     {
-        //gameObject.GetComponent<Button>().image.color = Color.red;
+        gameObject.GetComponent<Button>().image.color = Color.blue;
 
         GameObject elementPrefabInitiated = periodicTableControllerScript.getElementPrefabInitiated();
         GameObject elementPrefabSelected = Array.Find(periodicTableControllerScript.getElementPrefabs(), s => s.name.Equals(elementForButton.name));
