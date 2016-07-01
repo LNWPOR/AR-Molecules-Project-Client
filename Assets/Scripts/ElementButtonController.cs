@@ -77,9 +77,10 @@ public class ElementButtonController : MonoBehaviour {
     private void InstantiatePrefabSelected(GameObject elementPrefabSelected, ElementData elementForButton)
     {
         GameObject newElementPrefabInitiated = Instantiate(elementPrefabSelected,
-                                                new Vector3(-3f, 3.5f, 0f),
+                                                new Vector3(-1f, 3.5f, 0f),
                                                 Quaternion.identity) as GameObject;
         newElementPrefabInitiated.name = elementForButton.name;
         periodicTableControllerScript.setElementPrefabInitiated(newElementPrefabInitiated);
+        periodicTableControllerScript.SetElementDetailPanelText(elementForButton);
     }
 }
