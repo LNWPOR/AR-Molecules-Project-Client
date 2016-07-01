@@ -20,9 +20,12 @@ public class PeriodicTableController : MonoBehaviour
     void Start()
     {
         fracJourney = 0.05f;
-        moveDistance = editorCanvas.GetComponent<RectTransform>().rect.height/2;
+        //moveDistance = editorCanvas.GetComponent<RectTransform>().rect.height/2;
+        moveDistance = 318f/2;
         moveTime = moveDistance/fracJourney;
         elementPrefabInitiated = null;
+        Debug.Log(periodicTablePanel.transform.position);
+        Debug.Log(periodicTablePanel.GetComponent<RectTransform>().localPosition);
     }
 
     public GameObject[] getElementPrefabs()
@@ -71,9 +74,19 @@ public class PeriodicTableController : MonoBehaviour
         {
             Destroy(elementPrefabInitiated);
         }
-        
+
+        Vector3 periodicTablePanelLocalPos = periodicTablePanel.GetComponent<RectTransform>().localPosition;
+        Vector3 newMoveTarget = new Vector3(periodicTablePanelLocalPos.x,
+                                            periodicTablePanelLocalPos.y - moveDistance,
+                                            periodicTablePanelLocalPos.z);
+        StartMovePeriodicTablePanel(newMoveTarget);
+        ResetElementDetailPanelText();
+    }
+
+    public void OpenPeriodicTable()
+    {
         Vector3 newMoveTarget = new Vector3(periodicTablePanel.transform.position.x,
-                                            periodicTablePanel.transform.position.y - moveDistance,
+                                            periodicTablePanel.transform.position.y + moveDistance,
                                             periodicTablePanel.transform.position.z);
         StartMovePeriodicTablePanel(newMoveTarget);
         ResetElementDetailPanelText();
@@ -110,6 +123,7 @@ public class PeriodicTableController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         canMove = false;
+        Debug.Log(periodicTablePanel.GetComponent<RectTransform>().localPosition);
     }
 
 

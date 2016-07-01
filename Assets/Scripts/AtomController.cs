@@ -7,7 +7,13 @@ public class AtomController : MonoBehaviour
     private Vector3 rotateCenter;
     public bool canDestroyElectron;
     public bool canSpin;
+    private GameObject periodicTableController;
+    private PeriodicTableController periodicTableControllerScript;
 
+    void Awake()
+    {
+        GetPeriodicTableController();
+    }
     // Use this for initialization
     void Start()
     {
@@ -26,8 +32,7 @@ public class AtomController : MonoBehaviour
 
     void OnMouseDown()
     {
-        // this object was clicked - do something
-        Debug.Log("gg");
+        periodicTableControllerScript.OpenPeriodicTable();
     }
 
     private void CheckSpinAtom()
@@ -44,5 +49,11 @@ public class AtomController : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+    }
+
+    private void GetPeriodicTableController()
+    {
+        periodicTableController = GameObject.Find("PeriodicTableController");
+        periodicTableControllerScript = periodicTableController.GetComponent<PeriodicTableController>();
     }
 }

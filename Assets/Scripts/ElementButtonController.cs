@@ -8,10 +8,14 @@ public class ElementButtonController : MonoBehaviour {
     private ElementData elementForButton;
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
+    
+    void Awake()
+    {
+        GetPeriodicTableController();
+    }
     // Use this for initialization
     void Start()
     {
-        GetPeriodicTableController();
         InitButtonElementInfo();
     }
 
