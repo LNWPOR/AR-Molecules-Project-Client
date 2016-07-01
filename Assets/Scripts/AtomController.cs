@@ -6,6 +6,8 @@ public class AtomController : MonoBehaviour
 
     private Vector3 rotateCenter;
     public bool canDestroyElectron;
+    public bool canSpin;
+
     // Use this for initialization
     void Start()
     {
@@ -13,18 +15,27 @@ public class AtomController : MonoBehaviour
                                    transform.position.y,
                                    transform.position.z);
         canDestroyElectron = false;
+        canSpin = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAround(rotateCenter, Vector3.up, 200 * Time.deltaTime);
+        CheckSpinAtom();
     }
 
     void OnMouseDown()
     {
         // this object was clicked - do something
-        Destroy(this.gameObject);
+        Debug.Log("gg");
+    }
+
+    private void CheckSpinAtom()
+    {
+        if (canSpin)
+        {
+            transform.RotateAround(rotateCenter, Vector3.up, 200 * Time.deltaTime);
+        }
     }
 
     public void OnTriggerStay(Collider other)
