@@ -36,6 +36,16 @@ public class PeriodicTableSubmitButton : MonoBehaviour {
 
     public void OnClickSubmitButton()
     {
+        GameObject atomTarget = periodicTableControllerScript.GetAtomTarget();
+        GameObject elementPrefabInitiated = periodicTableControllerScript.getElementPrefabInitiated();
+        GameObject newAtom = Instantiate(elementPrefabInitiated,atomTarget.transform.position,Quaternion.identity) as GameObject;
+        AtomController newAtomControllerScript = newAtom.GetComponent<AtomController>();
+        newAtomControllerScript.DestroyElectron();
+        newAtomControllerScript.canSpin = false;
+        GameObject mainEditMolecule = GameObject.Find("MainEditMolecule");
+        newAtom.transform.parent = mainEditMolecule.transform;
+        newAtom.name = elementPrefabInitiated.name;
+        Destroy(atomTarget);
         periodicTableControllerScript.ClosePeriodicTable();
     }
 

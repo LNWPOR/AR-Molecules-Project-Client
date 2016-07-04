@@ -6,26 +6,36 @@ using System;
 public class PeriodicTableController : MonoBehaviour
 {
     public Transform periodicTablePanel;
+    private Animator anim;
+    private bool periodicTablePanelIsShow = false;
+
     public Canvas editorCanvas;
     public GameObject[] elementPrefabs;
     public GameObject elementPrefabInitiated;
     public Transform elementDetailPanel;
 
-    private bool canMove = false;
-    private Vector3 moveTarget;
-    private float moveTime;
-    private float fracJourney;
-    public float moveDistance;
+    private GameObject atomTarget;
 
     void Start()
     {
-        fracJourney = 0.05f;
-        //moveDistance = editorCanvas.GetComponent<RectTransform>().rect.height/2;
-        moveDistance = 318f/2;
-        moveTime = moveDistance/fracJourney;
         elementPrefabInitiated = null;
-        Debug.Log(periodicTablePanel.transform.position);
-        Debug.Log(periodicTablePanel.GetComponent<RectTransform>().localPosition);
+        InitAnim();
+    }
+
+    public GameObject GetAtomTarget()
+    {
+        return atomTarget;
+    }
+    public void SetAtomTarget(GameObject newAtomTarget)
+    {
+        atomTarget = newAtomTarget;
+    }
+
+    private void InitAnim()
+    {
+        //Time.timeScale = 1;
+        anim = periodicTablePanel.GetComponent<Animator>();
+        anim.enabled = false;
     }
 
     public GameObject[] getElementPrefabs()
@@ -38,17 +48,13 @@ public class PeriodicTableController : MonoBehaviour
         return elementPrefabInitiated;
     }
 
-    public void setElementPrefabInitiated(GameObject newElementPrefabInitiated)
+    public void SetElementPrefabInitiated(GameObject newElementPrefabInitiated)
     {
         elementPrefabInitiated = newElementPrefabInitiated;
     }
 
     void Update()
     {
-        if (canMove)
-        {
-            MovePeriodicTablePanel();
-        }
     }
 
     public void SetElementDetailPanelText(ElementData elementForButton)
@@ -65,7 +71,6 @@ public class PeriodicTableController : MonoBehaviour
         {
             Array.Find(elementDetailPanelText, s => s.name.Equals("AtomEnText")).text = " En : " + elementForButton.en.ToString();
         }
-
     }
 
     public void ClosePeriodicTable()
@@ -74,22 +79,28 @@ public class PeriodicTableController : MonoBehaviour
         {
             Destroy(elementPrefabInitiated);
         }
-
-        Vector3 periodicTablePanelLocalPos = periodicTablePanel.GetComponent<RectTransform>().localPosition;
-        Vector3 newMoveTarget = new Vector3(periodicTablePanelLocalPos.x,
-                                            periodicTablePanelLocalPos.y - moveDistance,
-                                            periodicTablePanelLocalPos.z);
-        StartMovePeriodicTablePanel(newMoveTarget);
         ResetElementDetailPanelText();
+        PlayAnimClosePeriodicTable();
     }
 
+    private void PlayAnimClosePeriodicTable()
+    {
+        periodicTablePanelIsShow = false;
+        anim.Play("PeriodicTableSlideOut");
+        //Time.timeScale = 1;
+    }
     public void OpenPeriodicTable()
     {
-        Vector3 newMoveTarget = new Vector3(periodicTablePanel.transform.position.x,
-                                            periodicTablePanel.transform.position.y + moveDistance,
-                                            periodicTablePanel.transform.position.z);
-        StartMovePeriodicTablePanel(newMoveTarget);
         ResetElementDetailPanelText();
+        PlayAnimOpenPeriodicTable();
+    }
+
+    private void PlayAnimOpenPeriodicTable()
+    {
+        anim.enabled = true;
+        anim.Play("PeriodicTableSlideIn");
+        periodicTablePanelIsShow = true;
+        //Time.timeScale = 0;
     }
 
     private void ResetElementDetailPanelText()
@@ -100,35 +111,4 @@ public class PeriodicTableController : MonoBehaviour
         Array.Find(elementDetailPanelText, s => s.name.Equals("AtomMassText")).text = "";
         Array.Find(elementDetailPanelText, s => s.name.Equals("AtomEnText")).text = "";
     }
-
-    private void StartMovePeriodicTablePanel(Vector3 newMoveTarget)
-    {
-        canMove = true;
-        moveTarget = newMoveTarget;
-        StartCoroutine(WaitMoving(moveTime));
-    }
-
-    private void MovePeriodicTablePanel()
-    {
-        periodicTablePanel.transform.position = Vector3.Lerp(periodicTablePanel.transform.position, moveTarget, fracJourney);
-    }
-
-    private IEnumerator WaitMoving(float time)
-    {
-        float count = 0;
-        while (count < time)
-        {
-            count += Time.deltaTime;
-            // Debug.Log(Mathf.Floor(count));
-            yield return new WaitForEndOfFrame();
-        }
-        canMove = false;
-        Debug.Log(periodicTablePanel.GetComponent<RectTransform>().localPosition);
-    }
-
-
-    
-
-
-    
 }

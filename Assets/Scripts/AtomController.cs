@@ -5,11 +5,9 @@ public class AtomController : MonoBehaviour
 {
 
     private Vector3 rotateCenter;
-    public bool canDestroyElectron;
-    public bool canSpin;
+    public bool canSpin = false;
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
-
     void Awake()
     {
         GetPeriodicTableController();
@@ -20,35 +18,38 @@ public class AtomController : MonoBehaviour
         rotateCenter = new Vector3(transform.position.x - 1f,
                                    transform.position.y,
                                    transform.position.z);
-        canDestroyElectron = false;
-        canSpin = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckSpinAtom();
+        CheckSpinAtom(canSpin);
     }
 
     void OnMouseDown()
     {
         periodicTableControllerScript.OpenPeriodicTable();
+        periodicTableControllerScript.SetAtomTarget(gameObject);
     }
 
-    private void CheckSpinAtom()
+    private void CheckSpinAtom(bool canSpin)
     {
         if (canSpin)
-        {
+        {      
             transform.RotateAround(rotateCenter, Vector3.up, 200 * Time.deltaTime);
         }
     }
 
-    public void OnTriggerStay(Collider other)
+    public void DestroyElectron()
     {
-        if (canDestroyElectron && other.gameObject.tag.Equals("Electron"))
+        Transform[] electrons = gameObject.GetComponentsInChildren<Transform>();
+        foreach (Transform electron in electrons)
         {
-            Destroy(other.gameObject);
-        }
+            if (electron.tag.Equals("Electron"))
+            {
+                Destroy(electron.gameObject);
+            }
+        } 
     }
 
     private void GetPeriodicTableController()
