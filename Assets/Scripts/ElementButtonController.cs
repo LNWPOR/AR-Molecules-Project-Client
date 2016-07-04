@@ -83,8 +83,10 @@ public class ElementButtonController : MonoBehaviour {
         GameObject newElementPrefabInitiated = Instantiate(elementPrefabSelected,
                                                 new Vector3(-1f, 3.5f, 0f),
                                                 Quaternion.identity) as GameObject;
+        AtomController newElementControllerScript = newElementPrefabInitiated.GetComponent<AtomController>();
+        newElementControllerScript.canSpin = true;
         newElementPrefabInitiated.name = elementForButton.name;
-        periodicTableControllerScript.setElementPrefabInitiated(newElementPrefabInitiated);
+        periodicTableControllerScript.SetElementPrefabInitiated(newElementPrefabInitiated);
         periodicTableControllerScript.SetElementDetailPanelText(elementForButton);
     }
 }
