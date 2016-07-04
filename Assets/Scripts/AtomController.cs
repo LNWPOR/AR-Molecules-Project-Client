@@ -5,22 +5,21 @@ public class AtomController : MonoBehaviour
 {
 
     private Vector3 rotateCenter;
-    public bool canSpin = false;
+    public bool canSpin;
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
     void Awake()
     {
-        GetPeriodicTableController();
-    }
-    // Use this for initialization
-    void Start()
-    {
         rotateCenter = new Vector3(transform.position.x - 1f,
                                    transform.position.y,
                                    transform.position.z);
+        canSpin = false;
+    }
+    void Start()
+    {
+        GetPeriodicTableController();
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckSpinAtom(canSpin);
