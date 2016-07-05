@@ -18,8 +18,7 @@ public class ElementButtonController : MonoBehaviour {
     }
     void Start()
     {
-        GetPeriodicTableController();
-        
+        GetPeriodicTableController();    
     }
 
     void Update()

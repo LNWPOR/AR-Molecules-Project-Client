@@ -6,6 +6,12 @@ public class PeriodicTableSubmitButton : MonoBehaviour {
 
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
+    private string AXEName;
+
+    void Awake()
+    {
+        AXEName = "AX2E0";
+    }
 
     void Start () {
         GetPeriodicTableController();
@@ -42,7 +48,7 @@ public class PeriodicTableSubmitButton : MonoBehaviour {
         AtomController newAtomControllerScript = newAtom.GetComponent<AtomController>();
         newAtomControllerScript.DestroyElectron();
         newAtomControllerScript.canSpin = false;
-        GameObject mainEditMolecule = GameObject.Find("MainEditMolecule");
+        GameObject mainEditMolecule = GameObject.Find(AXEName);
         newAtom.transform.parent = mainEditMolecule.transform;
         newAtom.name = elementPrefabInitiated.name;
         Destroy(atomTarget);
