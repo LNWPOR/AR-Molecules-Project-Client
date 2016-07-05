@@ -8,20 +8,29 @@ public class ElementButtonController : MonoBehaviour {
     private ElementData elementForButton;
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
+    private Button elementButton;
+    private ColorBlock startCB;
     
     void Awake()
     {
-        GetPeriodicTableController();
+        InitButtonColor();
+        InitButtonElementInfo();
     }
-    // Use this for initialization
     void Start()
     {
-        InitButtonElementInfo();
+        GetPeriodicTableController();
+        
     }
 
     void Update()
     {
         ChangeColorDefault();
+    }
+
+    private void InitButtonColor()
+    {
+        elementButton = gameObject.GetComponent<Button>();
+        startCB = elementButton.colors;
     }
 
     private void GetPeriodicTableController()
@@ -45,17 +54,20 @@ public class ElementButtonController : MonoBehaviour {
         GameObject elementPrefabInitiated = periodicTableControllerScript.getElementPrefabInitiated();
         if (elementPrefabInitiated == null)
         {
-            gameObject.GetComponent<Button>().image.color = Color.white;
+            ColorBlock cb = elementButton.colors;
+            cb.normalColor = startCB.normalColor;
         }
         if (elementPrefabInitiated != null && elementPrefabInitiated.name != gameObject.name)
         {
-            gameObject.GetComponent<Button>().image.color = Color.white;
+            ColorBlock cb = elementButton.colors;
+            cb.normalColor = startCB.normalColor;
         }
     }
 
     public void OnClickElementButton()
     {
-        gameObject.GetComponent<Button>().image.color = Color.blue;
+        ColorBlock cb = elementButton.colors;
+        cb.normalColor = startCB.highlightedColor;
 
         GameObject elementPrefabInitiated = periodicTableControllerScript.getElementPrefabInitiated();
         GameObject elementPrefabSelected = Array.Find(periodicTableControllerScript.getElementPrefabs(), s => s.name.Equals(elementForButton.name));
