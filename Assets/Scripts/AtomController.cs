@@ -8,16 +8,22 @@ public class AtomController : MonoBehaviour
     public bool canSpin;
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
+    public bool canClick;
+    private string AXEName;
+
     void Awake()
     {
         rotateCenter = new Vector3(transform.position.x - 1f,
                                    transform.position.y,
                                    transform.position.z);
+        AXEName = "AX2E0";
         canSpin = false;
+        canClick = true;
+        GetPeriodicTableController();
     }
     void Start()
     {
-        GetPeriodicTableController();
+        
     }
 
     void Update()
@@ -27,8 +33,28 @@ public class AtomController : MonoBehaviour
 
     void OnMouseDown()
     {
-        periodicTableControllerScript.OpenPeriodicTable();
-        periodicTableControllerScript.SetAtomTarget(gameObject);
+        if (canClick)
+        {
+            TurnOffOnClickAllAtom();
+            periodicTableControllerScript.OpenPeriodicTable();
+            periodicTableControllerScript.SetAtomTarget(gameObject);
+        }
+    }
+
+    private void TurnOffOnClickAllAtom()
+    {
+        GameObject mainEditMolecule = GameObject.Find(AXEName);
+        Transform[] atoms = mainEditMolecule.GetComponentsInChildren<Transform>();
+
+        foreach (Transform atom in atoms)
+        {
+            if (atom.tag.Equals("Atom"))
+            {
+                AtomController atomControllerScript = atom.GetComponent<AtomController>();
+                atomControllerScript.canClick = false;
+            }
+
+        }
     }
 
     private void CheckSpinAtom(bool canSpin)
