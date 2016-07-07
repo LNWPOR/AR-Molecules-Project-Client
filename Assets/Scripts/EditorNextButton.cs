@@ -4,12 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class EditorNextButton : MonoBehaviour
 {
-    private GameObject mainEditMolecule;
-
     public void OnClickNextButton()
     {
-        mainEditMolecule = GameObject.Find(EditorManager.Instance.AXEName);
-        EditorManager.Instance.SetMainEditMolecule(mainEditMolecule);
+        EditorManager.Instance.SetMainEditMolecule();
+        EditorManager.Instance.SetEditMoleculeJSON();
         //SceneManager.LoadScene("save");
     }
 }
