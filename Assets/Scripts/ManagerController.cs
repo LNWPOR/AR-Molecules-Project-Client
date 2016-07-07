@@ -10,6 +10,7 @@ public class ManagerController : MonoBehaviour {
         DontDestroyOnLoad(UserManager.Instance.gameObject);
         DontDestroyOnLoad(MainManager.Instance.gameObject);
         DontDestroyOnLoad(PeriodicTableManager.Instance.gameObject);
+        DontDestroyOnLoad(EditorManager.Instance.gameObject);
     }
 	
 }

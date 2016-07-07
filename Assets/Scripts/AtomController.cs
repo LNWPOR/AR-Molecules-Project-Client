@@ -9,14 +9,12 @@ public class AtomController : MonoBehaviour
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
     public bool canClick;
-    private string AXEName;
 
     void Awake()
     {
         rotateCenter = new Vector3(transform.position.x - 1f,
                                    transform.position.y,
                                    transform.position.z);
-        AXEName = "AX2E0";
         canSpin = false;
         canClick = true;
         GetPeriodicTableController();
@@ -43,7 +41,7 @@ public class AtomController : MonoBehaviour
 
     private void TurnOffOnClickAllAtom()
     {
-        GameObject mainEditMolecule = GameObject.Find(AXEName);
+        GameObject mainEditMolecule = GameObject.Find(EditorManager.Instance.AXEName);
         Transform[] atoms = mainEditMolecule.GetComponentsInChildren<Transform>();
 
         foreach (Transform atom in atoms)
