@@ -6,7 +6,6 @@ public class EditorManager : MonoBehaviour {
     public string AXEName;
     public GameObject mainEditMolecule;
     public JSONObject editMoleculeJSON;
-    public Vector3 newPos;
 
     private static EditorManager _instance; 
     public static EditorManager Instance
@@ -30,7 +29,6 @@ public class EditorManager : MonoBehaviour {
     public void SetMainEditMolecule()
     {
         mainEditMolecule = GameObject.Find(EditorManager.Instance.AXEName);
-        newPos = mainEditMolecule.transform.position;
     }
 
     public void SetEditMoleculeJSON()
