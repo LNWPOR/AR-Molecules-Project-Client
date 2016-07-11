@@ -1,30 +1,45 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TestController : MonoBehaviour {
+    public GameObject moleculeImageTarget;
 
-    private GameObject modelGenerator;
-    private ModelGenerator modelGeneratorScript;
+    private GameObject editorManager;
+    private EditorManager editorManagerScript;
 
     void Awake()
     {
-        modelGenerator = GameObject.Find("ModelGenerator");
-        modelGeneratorScript = modelGenerator.GetComponent<ModelGenerator>();
+        GetEditorManager();
     }
 
-	void Start () {
-        Debug.Log(EditorManager.Instance.mainEditMolecule);
-        Transform[] moleculeChilds = EditorManager.Instance.mainEditMolecule.GetComponentsInChildren<Transform>();
-        foreach (Transform moleculeChild in moleculeChilds)
+    void Start()
+    {
+        editorManagerScript.mainEditMolecule.transform.position = new Vector3(
+            editorManagerScript.mainEditMolecule.transform.position.x,
+            editorManagerScript.mainEditMolecule.transform.position.y + 15f,
+            editorManagerScript.mainEditMolecule.transform.position.z);
+        editorManagerScript.mainEditMolecule.transform.parent = moleculeImageTarget.transform; 
+    }
+
+    public void OnClickBackButton()
+    {
+        editorManagerScript.mainEditMolecule.transform.parent = null;
+        DontDestroyOnLoad(editorManagerScript.mainEditMolecule);
+        SceneManager.LoadScene("lnwpor_test");
+    }
+
+    public void OnClickSearchButton()
+    {
+        SceneManager.LoadScene("menu");
+    }
+
+    public void GetEditorManager()
+    {
+        editorManager = GameObject.Find("EditorManager");
+        if (editorManager != null)
         {
-            if (moleculeChild.gameObject.tag.Equals("Atom"))
-            {
-                modelGeneratorScript.GenerateAtom(moleculeChild.gameObject.name,moleculeChild.position,moleculeChild.rotation);
-            }
-            else if (moleculeChild.gameObject.tag.Equals("StickGroup"))
-            {
-                modelGeneratorScript.GenerateStickGroup(moleculeChild.gameObject.name, moleculeChild.position, moleculeChild.rotation);
-            }
+            editorManagerScript = editorManager.GetComponent<EditorManager>();
         }
-	}
+    }
 }

@@ -24,7 +24,7 @@ public class PeriodicTableManager : MonoBehaviour {
     {
         InitPeriodicTable();
         //Debug.Log(periodicTableList[0]);
-        //Debug.Log(periodicTableList[0].atomName +":"+ periodicTableList[0].groupNumber + ":" + periodicTableList[0].atomName + ":" + periodicTableList[0].mass + ":" + periodicTableList[0].en );
+        //Debug.Log(periodicTableList[0].name +":"+ periodicTableList[0].groupNumber + ":" + periodicTableList[0].atomName + ":" + periodicTableList[0].mass + ":" + periodicTableList[0].en );
     }
 
     private void InitPeriodicTable()

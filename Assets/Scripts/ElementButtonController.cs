@@ -15,10 +15,8 @@ public class ElementButtonController : MonoBehaviour {
     {
         InitButtonColor();
         InitButtonElementInfo();
-    }
-    void Start()
-    {
-        GetPeriodicTableController();    
+        GetPeriodicTableController();
+        
     }
 
     void Update()

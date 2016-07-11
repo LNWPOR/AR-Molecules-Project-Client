@@ -8,16 +8,7 @@ public class MenuController : MonoBehaviour {
 
     //public Button[] axeBtn;
 
-    void Awake()
-    {
-        //SetButton();
-        initManager();
-    }
 
-    private void initManager()
-    {
-        DontDestroyOnLoad(MainManager.Instance.gameObject);
-    }
 
     //private void SetButton()
     //{

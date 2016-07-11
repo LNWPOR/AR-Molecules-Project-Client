@@ -15,12 +15,21 @@ public class WordSearch : MonoBehaviour
     private List<Button> newButtonList;
     private int maxNewButtonTotal = 5;
 
-    void Start()
+    private GameObject mainManager;
+    private MainManager mainManagerScript;
+
+    void Awake()
     {
-        //DontDestroyOnLoad(MainManager.Instance.gameObject);
+        GetMainManager();
         inputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        possibleWords = new ArrayList(MainManager.Instance.moleculeList.Count);
+        possibleWords = new ArrayList(mainManagerScript.moleculeList.Count);
         newButtonList = new List<Button>();
+    }
+
+    private void GetMainManager()
+    {
+        mainManager = GameObject.Find("MainManager");
+        mainManagerScript = mainManager.GetComponent<MainManager>();
     }
 
     void ValueChangeCheck()
@@ -37,10 +46,10 @@ public class WordSearch : MonoBehaviour
 
         possibleWords.Clear();
         //Go through all words in your databas (could be slow with many words)
-        for (int i = 0; i < MainManager.Instance.moleculeList.Count; i++)
+        for (int i = 0; i < mainManagerScript.moleculeList.Count; i++)
         {
             //Check if the words start matches the start from the input
-            if (MainManager.Instance.moleculeList[i].name.StartsWith(inputField.text, !caseSensetive, null))
+            if (mainManagerScript.moleculeList[i].name.StartsWith(inputField.text, !caseSensetive, null))
             {    //Not add possible words if the InputField is empty 
                 if (inputField.text != "")
                 {
@@ -65,7 +74,7 @@ public class WordSearch : MonoBehaviour
                 newButton.transform.parent = menuPanel.transform;
                 newButton.transform.localScale = new Vector3(1f, 1f, 1f);
                 NewButtonController newButtonControllerScript = newButton.GetComponent<NewButtonController>();
-                newButtonControllerScript.moleculeName = MainManager.Instance.moleculeList[(int)possibleWords[i]].name;
+                newButtonControllerScript.moleculeName = mainManagerScript.moleculeList[(int)possibleWords[i]].name;
                 //newButton.GetComponentsInChildren<Text>()[0].text = MainManager.Instance.moleculeList[(int)possibleWords[i]].name;
                 newButtonList.Add(newButton);
             }

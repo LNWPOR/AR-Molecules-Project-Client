@@ -6,9 +6,14 @@ public class AtomController : MonoBehaviour
 
     private Vector3 rotateCenter;
     public bool canSpin;
+    public bool canClick;
+
     private GameObject periodicTableController;
     private PeriodicTableController periodicTableControllerScript;
-    public bool canClick;
+
+    private GameObject editorManager;
+    private EditorManager editorManagerScript;
+    
 
     void Awake()
     {
@@ -18,10 +23,16 @@ public class AtomController : MonoBehaviour
         canSpin = false;
         canClick = true;
         GetPeriodicTableController();
+        GetEditorManager();
     }
-    void Start()
+    
+    public void GetEditorManager()
     {
-        
+        editorManager = GameObject.Find("EditorManager");
+        if (editorManager != null)
+        {
+            editorManagerScript = editorManager.GetComponent<EditorManager>();
+        }
     }
 
     void Update()
@@ -41,7 +52,7 @@ public class AtomController : MonoBehaviour
 
     private void TurnOffOnClickAllAtom()
     {
-        GameObject mainEditMolecule = GameObject.Find(EditorManager.Instance.AXEName);
+        GameObject mainEditMolecule = GameObject.Find(editorManagerScript.AXEName);
         Transform[] atoms = mainEditMolecule.GetComponentsInChildren<Transform>();
 
         foreach (Transform atom in atoms)
@@ -78,6 +89,9 @@ public class AtomController : MonoBehaviour
     private void GetPeriodicTableController()
     {
         periodicTableController = GameObject.Find("PeriodicTableController");
-        periodicTableControllerScript = periodicTableController.GetComponent<PeriodicTableController>();
+        if (periodicTableController != null)
+        {
+            periodicTableControllerScript = periodicTableController.GetComponent<PeriodicTableController>();
+        }
     }
 }
