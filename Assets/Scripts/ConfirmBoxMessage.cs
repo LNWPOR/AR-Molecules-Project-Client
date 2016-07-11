@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class ConfirmBoxMessage : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class ConfirmBoxMessage : MonoBehaviour
     public void OnClickYesButton()
     {
         isAnswer = true;
-        confirmPanel.SetActive(true);
+        SceneManager.LoadScene("menu");
     }
 
     public void OnClickNoButton()
