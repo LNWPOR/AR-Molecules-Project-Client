@@ -21,6 +21,10 @@ public class WordSearch : MonoBehaviour
     void Awake()
     {
         GetMainManager();
+    }
+
+    void Start()
+    {
         inputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         possibleWords = new ArrayList(mainManagerScript.moleculeList.Count);
         newButtonList = new List<Button>();

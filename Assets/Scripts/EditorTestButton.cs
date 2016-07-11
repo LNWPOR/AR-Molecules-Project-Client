@@ -15,7 +15,7 @@ public class EditorTestButton : MonoBehaviour {
     public void OnClickTestButton()
     {
         editorManagerScript.SetMainEditMolecule();
-        DontDestroyOnLoad(editorManagerScript.mainEditMolecule);
+        editorManagerScript.SetEditMoleculeJSON();
         SceneManager.LoadScene("test");
     }
 

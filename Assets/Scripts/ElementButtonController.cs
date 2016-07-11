@@ -20,7 +20,6 @@ public class ElementButtonController : MonoBehaviour {
         GetPeriodicTableController();
         InitButtonColor();
         InitButtonElementInfo();
-        
     }
 
     private void GerPeriodicTableManager()
@@ -30,7 +29,6 @@ public class ElementButtonController : MonoBehaviour {
         {
             periodicTableManagerScript = periodicTableManager.GetComponent<PeriodicTableManager>();
         }
-        
     }
 
     void Update()
