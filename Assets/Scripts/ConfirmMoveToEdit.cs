@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class ConfirmBoxMessage : MonoBehaviour
+public class ConfirmMoveToEdit : MonoBehaviour
 {
     public Button yesButton;
     public Button noButton;
@@ -29,7 +29,7 @@ public class ConfirmBoxMessage : MonoBehaviour
     public void OnClickYesButton()
     {
         isAnswer = true;
-        SceneManager.LoadScene("menu");
+        SceneManager.LoadScene("Edit");
     }
 
     public void OnClickNoButton()
