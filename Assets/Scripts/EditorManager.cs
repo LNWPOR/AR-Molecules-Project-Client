@@ -7,28 +7,15 @@ public class EditorManager : MonoBehaviour {
     public GameObject mainEditMolecule;
     public JSONObject editMoleculeJSON;
 
-    private static EditorManager _instance; 
-    public static EditorManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new GameObject("_EditorManager").AddComponent<EditorManager>();
-            }
-
-            return _instance;
-        }
-    }
-
     void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         AXEName = "AX2E0";
     }
 
     public void SetMainEditMolecule()
     {
-        mainEditMolecule = GameObject.Find(EditorManager.Instance.AXEName);
+        mainEditMolecule = GameObject.Find(AXEName);
     }
 
     public void SetEditMoleculeJSON()

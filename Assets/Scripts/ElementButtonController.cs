@@ -10,15 +10,27 @@ public class ElementButtonController : MonoBehaviour {
     private PeriodicTableController periodicTableControllerScript;
     private Button elementButton;
     private ColorBlock startCB;
-    
+
+    private GameObject periodicTableManager;
+    private PeriodicTableManager periodicTableManagerScript;
+
     void Awake()
     {
+        GerPeriodicTableManager();
+        GetPeriodicTableController();
         InitButtonColor();
         InitButtonElementInfo();
+        
     }
-    void Start()
+
+    private void GerPeriodicTableManager()
     {
-        GetPeriodicTableController();    
+        periodicTableManager = GameObject.Find("PeriodicTableManager");
+        if (periodicTableManager != null)
+        {
+            periodicTableManagerScript = periodicTableManager.GetComponent<PeriodicTableManager>();
+        }
+        
     }
 
     void Update()
@@ -40,9 +52,9 @@ public class ElementButtonController : MonoBehaviour {
 
     private void InitButtonElementInfo()
     {
-        if (PeriodicTableManager.Instance.periodicTableList.Exists(x => x.name.Equals(gameObject.name)))
+        if (periodicTableManagerScript.periodicTableList.Exists(x => x.name.Equals(gameObject.name)))
         {
-            elementForButton = PeriodicTableManager.Instance.periodicTableList.Find(x => x.name.Equals(gameObject.name));
+            elementForButton = periodicTableManagerScript.periodicTableList.Find(x => x.name.Equals(gameObject.name));
             Array.Find(gameObject.GetComponentsInChildren<Text>(), s => s.name.Equals("NameText")).text = elementForButton.name;
             Array.Find(gameObject.GetComponentsInChildren<Text>(), s => s.name.Equals("NumberText")).text = elementForButton.atomNumber.ToString();
         }

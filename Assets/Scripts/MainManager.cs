@@ -5,29 +5,13 @@ using System;
 
 public class MainManager : MonoBehaviour
 {
-
-    private static MainManager _instance;
-    //public int axeNumber = 0;
-    //public string axeName = "AX2E0";
-
     public MoleculeData moleculeSelected;
     public List<MoleculeData> moleculeList;
 
-    public static MainManager Instance
+    public void Awake()
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new GameObject("_MainManager").AddComponent<MainManager>();
-            }
+        DontDestroyOnLoad(gameObject);
 
-            return _instance;
-        }
-    }
-
-    public void Start()
-    {
         moleculeList = new List<MoleculeData>();
         AddMoleculeToList("BeCl2");
         AddMoleculeToList("SO3");

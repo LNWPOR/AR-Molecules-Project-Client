@@ -12,11 +12,20 @@ public class MainController : MonoBehaviour
     private GameObject moleculeInstantiate;
     public Button backBtn;
     public Text moleculeNameText;
-    //public Text axeNameText;
+
+    private GameObject mainManager;
+    private MainManager mainManagerScript;
 
     void Awake()
     {
+        GetMainManager();
         backBtn.onClick.AddListener(() => OnClickBack());
+    }
+
+    private void GetMainManager()
+    {
+        mainManager = GameObject.Find("MainManager");
+        mainManagerScript = mainManager.GetComponent<MainManager>();
     }
 
     void Start()
@@ -32,7 +41,7 @@ public class MainController : MonoBehaviour
 
     private void InitMolecule()
     {
-        moleculePrefabsSelected = Array.Find(moleculePrefabs, s => s.name.Equals(MainManager.Instance.moleculeSelected.name));
+        moleculePrefabsSelected = Array.Find(moleculePrefabs, s => s.name.Equals(mainManagerScript.moleculeSelected.name));
         moleculeInstantiate = Instantiate(moleculePrefabsSelected,
             new Vector3(transform.position.x, transform.position.y + 15f, transform.position.z),
             Quaternion.identity) as GameObject;

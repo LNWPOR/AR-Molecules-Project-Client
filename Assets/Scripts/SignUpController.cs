@@ -12,11 +12,20 @@ public class SignUpController : MonoBehaviour
     public InputField passwordInputField;
     public Button signUpBtn;
     public Button cancelBtn;
+    private GameObject networkManager;
+    private NetworkManager networkManagerScript;
 
     void Awake()
-    {   
+    {
+        GetNetworkManager();
         signUpBtn.onClick.AddListener(() => OnClickSingUp());
         cancelBtn.onClick.AddListener(() => OnClickCancel());
+    }
+
+    void GetNetworkManager()
+    {
+        networkManager = GameObject.Find("NetworkManager");
+        networkManagerScript = networkManager.GetComponent<NetworkManager>();
     }
 
     void Start()
@@ -26,7 +35,7 @@ public class SignUpController : MonoBehaviour
 
     private void SocketOn()
     {
-        NetworkManager.Instance.Socket.On("SIGNUP_READY", OnSignUpReady);
+        networkManagerScript.Socket.On("SIGNUP_READY", OnSignUpReady);
     }
 
     private void OnClickSingUp()
@@ -34,7 +43,7 @@ public class SignUpController : MonoBehaviour
         JSONObject data = new JSONObject();
         data.AddField("username", usernameInputField.text);
         data.AddField("password", passwordInputField.text);
-        NetworkManager.Instance.Socket.Emit("SIGNUP", data);
+        networkManagerScript.Socket.Emit("SIGNUP", data);
     }
 
     private void OnSignUpReady(SocketIOEvent evt)

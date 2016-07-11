@@ -4,21 +4,7 @@ using SocketIO;
 
 public class NetworkManager : MonoBehaviour {
 
-	private static NetworkManager _instance;
 	private SocketIOComponent _socket;
-
-	public static NetworkManager Instance{
-
-		get
-		{
-			if( _instance == null ){
-				_instance = new GameObject("_NetworkManager").AddComponent<NetworkManager>();
-			}
-
-			return _instance;
-		}
-
-	}
 
 	public SocketIOComponent Socket{
 		get{
@@ -27,5 +13,11 @@ public class NetworkManager : MonoBehaviour {
 			return _socket;
 		}
 	}
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(_socket);
+    }
 
 }
