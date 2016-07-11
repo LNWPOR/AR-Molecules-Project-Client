@@ -8,20 +8,9 @@ public class PeriodicTableManager : MonoBehaviour {
     private static PeriodicTableManager _instance;
     public List<ElementData> periodicTableList;
 
-    public static PeriodicTableManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new GameObject("_PeriodicTableManager").AddComponent<PeriodicTableManager>();
-            }
-            return _instance;
-        }
-    }
-
     public void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         InitPeriodicTable();
         //Debug.Log(periodicTableList[0]);
         //Debug.Log(periodicTableList[0].name +":"+ periodicTableList[0].groupNumber + ":" + periodicTableList[0].atomName + ":" + periodicTableList[0].mass + ":" + periodicTableList[0].en );
