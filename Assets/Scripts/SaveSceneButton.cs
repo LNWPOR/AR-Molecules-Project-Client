@@ -38,7 +38,7 @@ public class SaveSceneButton : MonoBehaviour
         }
     }
 
-    public void OnClickCancelButton()
+    public void OnClickCancelButton()  // may not use
     {
         SceneManager.LoadScene("Edit");
     }
