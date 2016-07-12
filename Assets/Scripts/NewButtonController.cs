@@ -30,7 +30,7 @@ public class NewButtonController : MonoBehaviour {
     public void onClickThisMoleculeName()
     {
         //Debug.Log(moleculeName);
-        mainManagerScript.moleculeSelected = mainManagerScript.moleculeList.Find(x => x.name.Equals(moleculeName));
+        mainManagerScript.moleculeJSONSelected = mainManagerScript.moleculesJSONList.Find(x => Converter.JsonToString(x.GetField("name").ToString()).Equals(moleculeName));
         SceneManager.LoadScene("main");
     }
 

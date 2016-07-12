@@ -19,8 +19,6 @@ public class MainController : MonoBehaviour
 
     public GameObject mainMolecule;
 
-    private GameObject networkManager;
-    private NetworkManager networkManagerScript;
 
     private GameObject modelGenerator;
     private ModelGenerator modelGeneratorScript;
@@ -29,7 +27,6 @@ public class MainController : MonoBehaviour
 
     void Awake()
     {
-        GetNetworkManager();
         GetMainManager();
         GetModelGenerator();
         backBtn.onClick.AddListener(() => OnClickBack());
@@ -52,32 +49,9 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
-        SocketOn();
         InitMolecule();
         SetUIText();
-        StartCoroutine(WaitToEmitGetMainEditMoleculeJSON(1f));
-
-    }
-
-    private IEnumerator WaitToEmitGetMainEditMoleculeJSON(float time)
-    {
-        float count = 0;
-        while (count < time)
-        {
-            count += Time.deltaTime;
-            // Debug.Log(Mathf.Floor(count));
-            yield return new WaitForEndOfFrame();
-        }
-
-        JSONObject data = new JSONObject();
-        data.AddField("name", moleculeName);
-        networkManagerScript.Socket.Emit("GET_mainEditMoleculeJSON", data);
-    }
-
-
-    private void SocketOn()
-    {
-        networkManagerScript.Socket.On("GET_mainEditMoleculeJSON", SetMainMolecule);
+        SetMainMolecule();
     }
 
     private void OnClickBack()
@@ -101,32 +75,26 @@ public class MainController : MonoBehaviour
         //axeNameText.text = MainManager.Instance.axeName;
     }
 
-    private void SetMainMolecule(SocketIOEvent evt)
+    private void SetMainMolecule()
     {
         //Debug.Log(evt.data);
         //mainMolecule.name = editorManagerScript.AXEName;
-        for (int i = 0; i < evt.data.GetField("moleculeObjectsList").Count; i++)
+        for (int i = 0; i < mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList").Count; i++)
         {
-            string moleculeObjectName = Converter.JsonToString(evt.data.GetField("moleculeObjectsList")[i].GetField("name").ToString());
-            Vector3 moleculeObjectPosition = Converter.JsonToVecter3(Converter.JsonToString(evt.data.GetField("moleculeObjectsList")[i].GetField("position").ToString()));
-            Quaternion moleculeObjectRotation = Converter.JsonToRotation(Converter.JsonToString(evt.data.GetField("moleculeObjectsList")[i].GetField("rotation").ToString()));
+            string moleculeObjectName = Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("name").ToString());
+            Vector3 moleculeObjectPosition = Converter.JsonToVecter3(Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("position").ToString()));
+            Quaternion moleculeObjectRotation = Converter.JsonToRotation(Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("rotation").ToString()));
 
-            if (Converter.JsonToString(evt.data.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
+            if (Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
             {
                 //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
                 modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
             }
-            else if (Converter.JsonToString(evt.data.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
+            else if (Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
             {
                 //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
                 modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
             }
         }
-    }
-
-    private void GetNetworkManager()
-    {
-        networkManager = GameObject.Find("NetworkManager");
-        networkManagerScript = networkManager.GetComponent<NetworkManager>();
     }
 }
