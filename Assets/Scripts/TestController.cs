@@ -29,21 +29,26 @@ public class TestController : MonoBehaviour {
 
     void Start()
     {
+        SetMainMolecule();
+    }
+
+    private void SetMainMolecule()
+    {
         mainMolecule.name = editorManagerScript.AXEName;
-        for (int i = 0;i< editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList").Count;i++)
+        for (int i = 0; i < editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList").Count; i++)
         {
             string moleculeObjectName = Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("name").ToString());
             Vector3 moleculeObjectPosition = Converter.JsonToVecter3(Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("position").ToString()));
             Quaternion moleculeObjectRotation = Converter.JsonToRotation(Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("rotation").ToString()));
-            
+
             if (Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
             {
-                Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
+                //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
                 modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
             }
             else if (Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
             {
-                Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
+                //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
                 modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
             }
         }
