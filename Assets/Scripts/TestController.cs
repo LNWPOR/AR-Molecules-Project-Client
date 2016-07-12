@@ -15,10 +15,10 @@ public class TestController : MonoBehaviour {
     void Awake()
     {
         GetEditorManager();
-        GetGenerator();
+        GetModelGenerator();
     }
 
-    private void GetGenerator()
+    private void GetModelGenerator()
     {
         modelGenerator = GameObject.Find("ModelGenerator");
         if (modelGenerator != null)

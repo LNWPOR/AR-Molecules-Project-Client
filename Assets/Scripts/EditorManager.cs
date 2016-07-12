@@ -7,9 +7,13 @@ public class EditorManager : MonoBehaviour {
     public GameObject mainEditMolecule;
     public JSONObject mainEditMoleculeJSON;
 
+    private GameObject networkManager;
+    private NetworkManager networkManagerScript;
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
+        GetNetworkManager();
         AXEName = "AX2E0";
     }
 
@@ -63,12 +67,16 @@ public class EditorManager : MonoBehaviour {
         }
 
         JSONObject newEditMoleculeJSON = new JSONObject();
-        //newEditMoleculeJSON.AddField("name", "SO42-");
-        //newEditMoleculeJSON.AddField("ownerID", "12345678");
-        //newEditMoleculeJSON.AddField("description", "Awesome");
+        newEditMoleculeJSON.AddField("name", "SO42-");
+        newEditMoleculeJSON.AddField("ownerID", "12345678");
         newEditMoleculeJSON.AddField("moleculeObjectsList", moleculeObjectList);
-
         mainEditMoleculeJSON = newEditMoleculeJSON;
-        //NetworkManager.Instance.Socket.Emit("ADD_MOLECULE",  editMoleculeJSON);
+        networkManagerScript.Socket.Emit("ADD_MOLECULE", mainEditMoleculeJSON);
+    }
+
+    private void GetNetworkManager()
+    {
+        networkManager = GameObject.Find("NetworkManager");
+        networkManagerScript = networkManager.GetComponent<NetworkManager>();
     }
 }
