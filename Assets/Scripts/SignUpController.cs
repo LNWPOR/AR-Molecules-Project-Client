@@ -18,8 +18,7 @@ public class SignUpController : MonoBehaviour
     void Awake()
     {
         GetNetworkManager();
-        signUpBtn.onClick.AddListener(() => OnClickSingUp());
-        cancelBtn.onClick.AddListener(() => OnClickCancel());
+        
     }
 
     void GetNetworkManager()
@@ -31,6 +30,8 @@ public class SignUpController : MonoBehaviour
     void Start()
     {
         SocketOn();
+        signUpBtn.onClick.AddListener(() => OnClickSingUp());
+        cancelBtn.onClick.AddListener(() => OnClickCancel());
     }
 
     private void SocketOn()

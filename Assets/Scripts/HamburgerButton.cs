@@ -6,8 +6,6 @@ using System.Collections.Generic;
 public class HamburgerButton : MonoBehaviour
 {
 
-
-    public Button testButton;
     public GameObject panelMenu;
     //animator reference
     private Animator anim;
@@ -18,7 +16,7 @@ public class HamburgerButton : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         isPop = false;
         //get the animator component
         anim = panelMenu.GetComponent<Animator>();
@@ -35,7 +33,6 @@ public class HamburgerButton : MonoBehaviour
     public void OnClickHambergerButton()
     {
         PopUpPanelSlide();
-        HideTestButton();
     }
 
     public void PopUpPanelSlide()
@@ -61,7 +58,7 @@ public class HamburgerButton : MonoBehaviour
         //play the Slidein animation
         anim.Play("SlideIn");
         //freeze the timescale
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
     }
 
     public void SlideOutEvent()
@@ -71,11 +68,7 @@ public class HamburgerButton : MonoBehaviour
         //play the Slidein animation
         anim.Play("SlideOut");
         //freeze the timescale
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
     }
 
-    public void HideTestButton()
-    {
-        testButton.gameObject.SetActive(!isPop);
-    }
 }
