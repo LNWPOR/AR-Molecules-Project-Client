@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using SocketIO;
 
 public class WordSearch : MonoBehaviour
 {
@@ -18,16 +19,51 @@ public class WordSearch : MonoBehaviour
     private GameObject mainManager;
     private MainManager mainManagerScript;
 
+    private GameObject networkManager;
+    private NetworkManager networkManagerScript;
+
     void Awake()
     {
+        GetNetworkManager();
         GetMainManager();
+    }
+
+    private void GetNetworkManager()
+    {
+        networkManager = GameObject.Find("NetworkManager");
+        networkManagerScript = networkManager.GetComponent<NetworkManager>();
     }
 
     void Start()
     {
+        SocketOn();
         inputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         possibleWords = new ArrayList(mainManagerScript.moleculeList.Count);
         newButtonList = new List<Button>();
+        StartCoroutine(WaitToEmitGetMainEditMoleculeJSON(1f));
+    }
+
+    private void SocketOn()
+    {
+        networkManagerScript.Socket.On("GET_All_mainEditMoleculeJSON", SetmoleculeList);
+    }
+
+    private void SetmoleculeList(SocketIOEvent evt)
+    {
+        Debug.Log(evt.data[0]) ;
+        //mainManagerScript.AllMoleculesJSON = evt.data;
+    }
+
+    private IEnumerator WaitToEmitGetMainEditMoleculeJSON(float time)
+    {
+        float count = 0;
+        while (count < time)
+        {
+            count += Time.deltaTime;
+            // Debug.Log(Mathf.Floor(count));
+            yield return new WaitForEndOfFrame();
+        }
+        networkManagerScript.Socket.Emit("GET_All_mainEditMoleculeJSON");
     }
 
     private void GetMainManager()
