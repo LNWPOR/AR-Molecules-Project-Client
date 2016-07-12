@@ -3,35 +3,54 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class TestController : MonoBehaviour {
-    public GameObject moleculeImageTarget;
 
     private GameObject editorManager;
     private EditorManager editorManagerScript;
 
     public GameObject mainMolecule;
 
+    private GameObject modelGenerator;
+    private ModelGenerator modelGeneratorScript;
+
     void Awake()
     {
         GetEditorManager();
+        GetGenerator();
+    }
+
+    private void GetGenerator()
+    {
+        modelGenerator = GameObject.Find("ModelGenerator");
+        if (modelGenerator != null)
+        {
+            modelGeneratorScript = modelGenerator.GetComponent<ModelGenerator>();
+        }
     }
 
     void Start()
     {
         mainMolecule.name = editorManagerScript.AXEName;
-
-        //Debug.Log(editorManagerScript.mainEditMoleculeJSON);
-        
-        //editorManagerScript.mainEditMolecule.transform.position = new Vector3(
-        //    editorManagerScript.mainEditMolecule.transform.position.x,
-        //    editorManagerScript.mainEditMolecule.transform.position.y + 15f,
-        //    editorManagerScript.mainEditMolecule.transform.position.z);
-        //editorManagerScript.mainEditMolecule.transform.parent = moleculeImageTarget.transform; 
+        for (int i = 0;i< editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList").Count;i++)
+        {
+            string moleculeObjectName = Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("name").ToString());
+            Vector3 moleculeObjectPosition = Converter.JsonToVecter3(Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("position").ToString()));
+            Quaternion moleculeObjectRotation = Converter.JsonToRotation(Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("rotation").ToString()));
+            
+            if (Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
+            {
+                Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
+                modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
+            }
+            else if (Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
+            {
+                Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
+                modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
+            }
+        }
     }
 
     public void OnClickBackButton()
     {
-        //editorManagerScript.mainEditMolecule.transform.parent = null;
-        //DontDestroyOnLoad(editorManagerScript.mainEditMolecule);
         SceneManager.LoadScene("lnwpor_test");
     }
 

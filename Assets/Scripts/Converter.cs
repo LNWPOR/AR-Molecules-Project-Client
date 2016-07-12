@@ -15,11 +15,10 @@ public class Converter {
 
 	public static Vector3 JsonToVecter3(string target ){
 
-		Vector3 newVector;
+        Vector3 newVector;
 		string[] newString = Regex.Split(target,",");
-		newVector = new Vector3( float.Parse(newString[0]), float.Parse(newString[1]), float.Parse(newString[2]));
-
-		return newVector;
+        newVector = new Vector3( float.Parse(newString[0]), float.Parse(newString[1]), float.Parse(newString[2]));
+        return newVector;
 
 	}
 
@@ -43,7 +42,7 @@ public class Converter {
 
 	}
 
-	public static float[] JsonToRotation(string target ){
+	public static Quaternion JsonToRotation(string target ){
 
 		float[] newRotation = new float[3];
 		string[] newString = Regex.Split(target,",");
@@ -51,7 +50,7 @@ public class Converter {
 		newRotation[1] = float.Parse(newString[1]);
 		newRotation[2] = float.Parse(newString[2]);
 
-		return newRotation;
+        return Quaternion.Euler(new Vector3(newRotation[0], newRotation[1], newRotation[2]));
 
 	}
 

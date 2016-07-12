@@ -16,39 +16,6 @@ public class EditorManager : MonoBehaviour {
     public void SetMainEditMolecule()
     {
         mainEditMolecule = GameObject.Find(AXEName);
-        //GameObject currentMainEditMolecule = GameObject.Find(AXEName);
-        //if (currentMainEditMolecule != null)
-        //{
-        //    Transform[] currentMainEditMoleculeChilds = currentMainEditMolecule.GetComponentsInChildren<Transform>();
-        //    mainEditMolecule = new GameObject();
-        //    foreach (Transform currentMainEditMoleculeChild in currentMainEditMoleculeChilds)
-        //    {
-        //        //Debug.Log(currentMainEditMoleculeChild);
-        //        if (currentMainEditMoleculeChild.tag.Equals("Molecule"))
-        //        {
-        //            mainEditMolecule.name = currentMainEditMoleculeChild.name;
-        //            mainEditMolecule.transform.position = currentMainEditMoleculeChild.transform.position;
-        //            mainEditMolecule.transform.rotation = currentMainEditMoleculeChild.transform.rotation;
-        //        }
-        //        else if (currentMainEditMoleculeChild.tag.Equals("Atom"))
-        //        {
-        //            GameObject newAtom = new GameObject();
-        //            newAtom.name = currentMainEditMoleculeChild.name;
-        //            newAtom.transform.parent = mainEditMolecule.transform;
-        //            newAtom.transform.localPosition = currentMainEditMoleculeChild.transform.localPosition;
-        //            newAtom.transform.localRotation = currentMainEditMoleculeChild.transform.localRotation;
-        //        }
-        //        else if (currentMainEditMoleculeChild.tag.Equals("StickGroup"))
-        //        {
-        //            GameObject newStickGroup = new GameObject();
-        //            newStickGroup.name = currentMainEditMoleculeChild.name;
-        //            newStickGroup.transform.parent = mainEditMolecule.transform;
-        //            newStickGroup.transform.localPosition = currentMainEditMoleculeChild.transform.localPosition;
-        //            newStickGroup.transform.localRotation = currentMainEditMoleculeChild.transform.localRotation;
-        //        }
-        //    }
-
-        //}
     }
 
     public void SetEditMoleculeJSON()
@@ -65,9 +32,9 @@ public class EditorManager : MonoBehaviour {
                 atom.AddField("position", moleculeChild.localPosition.x.ToString() + ","
                                         + moleculeChild.localPosition.y.ToString() + ","
                                         + moleculeChild.localPosition.z.ToString());
-                atom.AddField("rotation", moleculeChild.localRotation.x.ToString() + ","
-                                        + moleculeChild.localRotation.y.ToString() + ","
-                                        + moleculeChild.localRotation.z.ToString());
+                atom.AddField("rotation", moleculeChild.localEulerAngles.x.ToString() + ","
+                                        + moleculeChild.localEulerAngles.y.ToString() + ","
+                                        + moleculeChild.localEulerAngles.z.ToString());
                 moleculeObjectList.Add(atom);
                 
             }
@@ -81,13 +48,13 @@ public class EditorManager : MonoBehaviour {
                     {
                         JSONObject stick = new JSONObject();
                         stick.AddField("name", stickGroupChild.gameObject.name);
-                        stick.AddField("tag", stickGroupChild.gameObject.tag);
+                        stick.AddField("tag", moleculeChild.gameObject.tag);
                         stick.AddField("position", moleculeChild.localPosition.x.ToString() + ","
                                                  + moleculeChild.localPosition.y.ToString() + ","
                                                  + moleculeChild.localPosition.z.ToString());
-                        stick.AddField("rotation", moleculeChild.localRotation.x.ToString() + ","
-                                                 + moleculeChild.localRotation.y.ToString() + ","
-                                                 + moleculeChild.localRotation.z.ToString());
+                        stick.AddField("rotation", moleculeChild.localEulerAngles.x.ToString() + ","
+                                                 + moleculeChild.localEulerAngles.y.ToString() + ","
+                                                 + moleculeChild.localEulerAngles.z.ToString());
                         moleculeObjectList.Add(stick);
                     }
                 }
