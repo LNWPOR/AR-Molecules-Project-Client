@@ -17,7 +17,7 @@ public class NetworkManager : MonoBehaviour {
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(_socket);
+        DontDestroyOnLoad(Socket);
     }
 
 }

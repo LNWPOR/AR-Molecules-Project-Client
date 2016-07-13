@@ -18,7 +18,6 @@ public class SignUpController : MonoBehaviour
     void Awake()
     {
         GetNetworkManager();
-        
     }
 
     void GetNetworkManager()
