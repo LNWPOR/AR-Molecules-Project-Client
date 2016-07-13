@@ -13,7 +13,7 @@ public class AtomController : MonoBehaviour
 
     private GameObject editorManager;
     private EditorManager editorManagerScript;
-    
+
 
     void Awake()
     {
@@ -52,7 +52,7 @@ public class AtomController : MonoBehaviour
 
     private void TurnOffOnClickAllAtom()
     {
-        GameObject mainEditMolecule = GameObject.Find(editorManagerScript.AXEName);
+        GameObject mainEditMolecule = GameObject.Find("MainMolecule");
         Transform[] atoms = mainEditMolecule.GetComponentsInChildren<Transform>();
 
         foreach (Transform atom in atoms)

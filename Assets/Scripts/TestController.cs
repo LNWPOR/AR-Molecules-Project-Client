@@ -34,7 +34,6 @@ public class TestController : MonoBehaviour {
 
     private void SetMainMolecule()
     {
-        mainMolecule.name = editorManagerScript.AXEName;
         for (int i = 0; i < editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList").Count; i++)
         {
             string moleculeObjectName = Converter.JsonToString(editorManagerScript.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("name").ToString());

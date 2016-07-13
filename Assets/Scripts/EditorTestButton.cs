@@ -14,7 +14,6 @@ public class EditorTestButton : MonoBehaviour {
 
     public void OnClickTestButton()
     {
-        editorManagerScript.SetMainEditMolecule();
         editorManagerScript.SetEditMoleculeJSON();
         SceneManager.LoadScene("test");
     }
