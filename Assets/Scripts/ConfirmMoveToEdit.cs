@@ -29,7 +29,7 @@ public class ConfirmMoveToEdit : MonoBehaviour
     public void OnClickYesButton()
     {
         isAnswer = true;
-        SceneManager.LoadScene("Edit");
+        SceneManager.LoadScene("Editor");
     }
 
     public void OnClickNoButton()

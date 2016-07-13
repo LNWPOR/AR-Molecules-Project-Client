@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class SaveSceneButton : MonoBehaviour
 {
-
     public Button saveButton;
     public Button cancelButton;
     public InputField nameInputField;
@@ -16,9 +15,23 @@ public class SaveSceneButton : MonoBehaviour
     private GameObject userManager;
     private UserManager userManagerScript;
 
+    private GameObject editorManager;
+    private EditorManager editorManagerScript;
+
+    private GameObject networkManager;
+    private NetworkManager networkManagerScript;
+
     void Awake()
     {
+        GetNetworkManager();
         GetUserManager();
+        GetEditorManager();
+    }
+
+    private void GetNetworkManager()
+    {
+        networkManager = GameObject.Find("NetworkManager");
+        networkManagerScript = networkManager.GetComponent<NetworkManager>();
     }
 
     void Start()
@@ -44,6 +57,9 @@ public class SaveSceneButton : MonoBehaviour
     {
         if (!isEmpty)
         {
+            editorManagerScript.mainEditMoleculeJSON.AddField("name", nameInputField.text);
+            editorManagerScript.mainEditMoleculeJSON.AddField("ownerID", userManagerScript.userData.id);
+            networkManagerScript.Socket.Emit("ADD_MOLECULE", editorManagerScript.mainEditMoleculeJSON);
             SceneManager.LoadScene("Test");
         }
     }
@@ -57,5 +73,14 @@ public class SaveSceneButton : MonoBehaviour
     {
         userManager = GameObject.Find("UserManager");
         userManagerScript = userManager.GetComponent<UserManager>();
+    }
+
+    public void GetEditorManager()
+    {
+        editorManager = GameObject.Find("EditorManager");
+        if (editorManager != null)
+        {
+            editorManagerScript = editorManager.GetComponent<EditorManager>();
+        }
     }
 }
