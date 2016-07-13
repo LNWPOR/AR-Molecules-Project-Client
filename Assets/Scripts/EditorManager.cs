@@ -69,7 +69,7 @@ public class EditorManager : MonoBehaviour {
         JSONObject newEditMoleculeJSON = new JSONObject();
         //newEditMoleculeJSON.AddField("name", "SO42-");
         //newEditMoleculeJSON.AddField("ownerID", "12345678");
-        //newEditMoleculeJSON.AddField("moleculeObjectsList", moleculeObjectList);
+        newEditMoleculeJSON.AddField("moleculeObjectsList", moleculeObjectList);
         mainEditMoleculeJSON = newEditMoleculeJSON;
         //networkManagerScript.Socket.Emit("ADD_MOLECULE", mainEditMoleculeJSON);
     }
