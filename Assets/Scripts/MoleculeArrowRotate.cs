@@ -5,14 +5,12 @@ public class MoleculeArrowRotate : MonoBehaviour {
 
     public string arrowDirection;
     private string AXEName;
-    private GameObject moleculeTarget;
     private bool buttonIsHold;
     public float rotateSpeed;
+    public GameObject mainEditMolecule;
 
     void Awake()
     {
-        AXEName = "AX2E0";
-        moleculeTarget = GameObject.Find(AXEName);
         buttonIsHold = false;
         rotateSpeed = 50f;
     }
@@ -23,11 +21,11 @@ public class MoleculeArrowRotate : MonoBehaviour {
         {
             if (arrowDirection.Equals("Left"))
             {
-                moleculeTarget.transform.RotateAround(moleculeTarget.transform.position, Vector3.up, rotateSpeed * Time.deltaTime);
+                mainEditMolecule.transform.RotateAround(mainEditMolecule.transform.position, Vector3.up, rotateSpeed * Time.deltaTime);
             }
             else if (arrowDirection.Equals("Right"))
             {
-                moleculeTarget.transform.RotateAround(moleculeTarget.transform.position, -Vector3.up, rotateSpeed * Time.deltaTime);
+                mainEditMolecule.transform.RotateAround(mainEditMolecule.transform.position, -Vector3.up, rotateSpeed * Time.deltaTime);
             }
         }
     }

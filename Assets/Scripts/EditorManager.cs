@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EditorManager : MonoBehaviour {
 
-    public string AXEName;
     public GameObject mainEditMolecule;
     public JSONObject mainEditMoleculeJSON;
 
@@ -14,12 +13,6 @@ public class EditorManager : MonoBehaviour {
     {
         DontDestroyOnLoad(gameObject);
         //GetNetworkManager();
-        AXEName = "AX2E0";
-    }
-
-    public void SetMainEditMolecule()
-    {
-        mainEditMolecule = GameObject.Find(AXEName);
     }
 
     public void SetEditMoleculeJSON()

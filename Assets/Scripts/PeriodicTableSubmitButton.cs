@@ -10,6 +10,8 @@ public class PeriodicTableSubmitButton : MonoBehaviour {
     private GameObject editorManager;
     private EditorManager editorManagerScript;
 
+    public GameObject mainEditMolecule;
+
     void Awake()
     {
         GetPeriodicTableController();
@@ -22,7 +24,6 @@ public class PeriodicTableSubmitButton : MonoBehaviour {
 
     private void TurnOnOnClickAllAtom()
     {
-        GameObject mainEditMolecule = GameObject.Find(editorManagerScript.AXEName);
         Transform[] atoms = mainEditMolecule.GetComponentsInChildren<Transform>();
 
         foreach (Transform atom in atoms)
@@ -63,7 +64,6 @@ public class PeriodicTableSubmitButton : MonoBehaviour {
         AtomController newAtomControllerScript = newAtom.GetComponent<AtomController>();
         newAtomControllerScript.DestroyElectron();
         newAtomControllerScript.canSpin = false;
-        GameObject mainEditMolecule = GameObject.Find(editorManagerScript.AXEName);
         newAtom.transform.parent = mainEditMolecule.transform;
         newAtom.name = elementPrefabInitiated.name;
         Destroy(atomTarget);

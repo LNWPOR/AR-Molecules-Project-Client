@@ -9,6 +9,8 @@ public class PeriodicTableCloseButton : MonoBehaviour {
     private GameObject editorManager;
     private EditorManager editorManagerScript;
 
+    public GameObject mainEditMolecule;
+
     void Awake()
     {
         GetPeriodicTableController();
@@ -30,7 +32,6 @@ public class PeriodicTableCloseButton : MonoBehaviour {
 
     private void TurnOnOnClickAllAtom()
     {
-        GameObject mainEditMolecule = GameObject.Find(editorManagerScript.AXEName);
         Transform[] atoms = mainEditMolecule.GetComponentsInChildren<Transform>();
 
         foreach (Transform atom in atoms)

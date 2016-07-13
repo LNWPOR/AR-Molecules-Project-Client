@@ -18,6 +18,11 @@ public class ElementButtonController : MonoBehaviour {
     {
         GerPeriodicTableManager();
         GetPeriodicTableController();
+        
+    }
+
+    void Start()
+    {
         InitButtonColor();
         InitButtonElementInfo();
     }

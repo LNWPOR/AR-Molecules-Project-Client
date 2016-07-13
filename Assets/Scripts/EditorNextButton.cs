@@ -14,7 +14,6 @@ public class EditorNextButton : MonoBehaviour
 
     public void OnClickNextButton()
     {
-        editorManagerScript.SetMainEditMolecule();
         editorManagerScript.SetEditMoleculeJSON();
         SceneManager.LoadScene("save");
     }
