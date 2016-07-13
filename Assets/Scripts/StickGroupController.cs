@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 public class StickGroupController : MonoBehaviour {
 
     // Use this for initialization
