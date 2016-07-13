@@ -6,6 +6,9 @@ using System;
 public class PeriodicTableController : MonoBehaviour
 {
     public Transform periodicTablePanel;
+    public Button nextButton;
+    public Button leftArrowButton;
+    public Button rightArrowButton;
     private Animator anim;
     private bool periodicTablePanelIsShow = false;
 
@@ -87,6 +90,7 @@ public class PeriodicTableController : MonoBehaviour
     {
         periodicTablePanelIsShow = false;
         anim.Play("PeriodicTableSlideOut");
+        SetButtonHideOrShow(true);
         //Time.timeScale = 1;
     }
     public void OpenPeriodicTable()
@@ -100,6 +104,7 @@ public class PeriodicTableController : MonoBehaviour
         anim.enabled = true;
         anim.Play("PeriodicTableSlideIn");
         periodicTablePanelIsShow = true;
+        SetButtonHideOrShow(false);
         //Time.timeScale = 0;
     }
 
@@ -110,5 +115,12 @@ public class PeriodicTableController : MonoBehaviour
         Array.Find(elementDetailPanelText, s => s.name.Equals("AtomNumberText")).text = "";
         Array.Find(elementDetailPanelText, s => s.name.Equals("AtomMassText")).text = "";
         Array.Find(elementDetailPanelText, s => s.name.Equals("AtomEnText")).text = "";
+    }
+
+    private void SetButtonHideOrShow(bool setButton)
+    {
+        nextButton.gameObject.SetActive(setButton);
+        leftArrowButton.gameObject.SetActive(setButton);
+        rightArrowButton.gameObject.SetActive(setButton);
     }
 }
