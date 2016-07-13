@@ -16,43 +16,43 @@ public class WordSearch : MonoBehaviour
     private List<Button> newButtonList;
     private int maxNewButtonTotal = 5;
 
-    private GameObject mainManager;
-    private MainManager mainManagerScript;
+    //private GameObject mainManager;
+    //private MainManager mainManagerScript;
 
-    private GameObject networkManager;
-    private NetworkManager networkManagerScript;
+    //private GameObject networkManager;
+    //private NetworkManager networkManagerScript;
 
     void Awake()
     {
-        GetNetworkManager();
-        GetMainManager();
+        //GetNetworkManager();
+        //GetMainManager();
     }
 
-    private void GetNetworkManager()
-    {
-        networkManager = GameObject.Find("NetworkManager");
-        networkManagerScript = networkManager.GetComponent<NetworkManager>();
-    }
+    //private void GetNetworkManager()
+    //{
+    //    networkManager = GameObject.Find("NetworkManager");
+    //    networkManagerScript = networkManager.GetComponent<NetworkManager>();
+    //}
 
     void Start()
     {
         SocketOn();
         inputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         //possibleWords = new ArrayList(mainManagerScript.moleculeList.Count);
-        possibleWords = new ArrayList(mainManagerScript.moleculesJSONList.Count);
+        possibleWords = new ArrayList(MainManager.Instance.moleculesJSONList.Count);
         newButtonList = new List<Button>();
         StartCoroutine(WaitToEmitGetMainEditMoleculeJSON(1f));
     }
 
     private void SocketOn()
     {
-        networkManagerScript.Socket.On("GET_All_mainEditMoleculeJSON", AddMoleculeList);
+        NetworkManager.Instance.Socket.On("GET_All_mainEditMoleculeJSON", AddMoleculeList);
     }
 
     private void AddMoleculeList(SocketIOEvent evt)
     {
         //Debug.Log(evt.data) ;
-        mainManagerScript.moleculesJSONList.Add(evt.data);
+        MainManager.Instance.moleculesJSONList.Add(evt.data);
     }
 
     private IEnumerator WaitToEmitGetMainEditMoleculeJSON(float time)
@@ -64,14 +64,14 @@ public class WordSearch : MonoBehaviour
             // Debug.Log(Mathf.Floor(count));
             yield return new WaitForEndOfFrame();
         }
-        networkManagerScript.Socket.Emit("GET_All_mainEditMoleculeJSON");
+        NetworkManager.Instance.Socket.Emit("GET_All_mainEditMoleculeJSON");
     }
 
-    private void GetMainManager()
-    {
-        mainManager = GameObject.Find("MainManager");
-        mainManagerScript = mainManager.GetComponent<MainManager>();
-    }
+    //private void GetMainManager()
+    //{
+    //    mainManager = GameObject.Find("MainManager");
+    //    mainManagerScript = mainManager.GetComponent<MainManager>();
+    //}
 
     void ValueChangeCheck()
     {
@@ -87,10 +87,10 @@ public class WordSearch : MonoBehaviour
 
         possibleWords.Clear();
         //Go through all words in your databas (could be slow with many words)
-        for (int i = 0; i < mainManagerScript.moleculesJSONList.Count; i++)
+        for (int i = 0; i < MainManager.Instance.moleculesJSONList.Count; i++)
         {
             //Check if the words start matches the start from the input
-            if (Converter.JsonToString(mainManagerScript.moleculesJSONList[i].GetField("name").ToString()).StartsWith(inputField.text, !caseSensetive, null))
+            if (Converter.JsonToString(MainManager.Instance.moleculesJSONList[i].GetField("name").ToString()).StartsWith(inputField.text, !caseSensetive, null))
             {    //Not add possible words if the InputField is empty 
                 if (inputField.text != "")
                 {
@@ -115,7 +115,7 @@ public class WordSearch : MonoBehaviour
                 newButton.transform.parent = menuPanel.transform;
                 newButton.transform.localScale = new Vector3(1f, 1f, 1f);
                 NewButtonController newButtonControllerScript = newButton.GetComponent<NewButtonController>();
-                newButtonControllerScript.moleculeName = Converter.JsonToString(mainManagerScript.moleculesJSONList[(int)possibleWords[i]].GetField("name").ToString());
+                newButtonControllerScript.moleculeName = Converter.JsonToString(MainManager.Instance.moleculesJSONList[(int)possibleWords[i]].GetField("name").ToString());
         //newButton.GetComponentsInChildren<Text>()[0].text = MainManager.Instance.moleculeList[(int)possibleWords[i]].name;
         newButtonList.Add(newButton);
             }

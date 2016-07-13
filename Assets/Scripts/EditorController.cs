@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
-public class TestController : MonoBehaviour {
+public class EditorController : MonoBehaviour {
 
-    //private GameObject editorManager;
-    //private EditorManager editorManagerScript;
-
-    public GameObject mainMolecule;
-
+    public GameObject mainEditMolecule;
     private GameObject modelGenerator;
     private ModelGenerator modelGeneratorScript;
 
     void Awake()
     {
-        //GetEditorManager();
+        //DontDestroyOnLoad(EditorManager.Instance.gameObject);
+        EditorManager.Instance.mainEditMolecule = mainEditMolecule;
         GetModelGenerator();
     }
 
@@ -29,7 +25,10 @@ public class TestController : MonoBehaviour {
 
     void Start()
     {
-        SetMainMolecule();
+        if (EditorManager.Instance.mainEditMoleculeJSON != null)
+        {
+            SetMainMolecule();
+        }
     }
 
     private void SetMainMolecule()
@@ -43,32 +42,13 @@ public class TestController : MonoBehaviour {
             if (Converter.JsonToString(EditorManager.Instance.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
             {
                 //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
-                modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule, false);
+                modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainEditMolecule, true);
             }
             else if (Converter.JsonToString(EditorManager.Instance.mainEditMoleculeJSON.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
             {
                 //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
-                modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
+                modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainEditMolecule);
             }
         }
     }
-
-    public void OnClickBackButton()
-    {
-        SceneManager.LoadScene("lnwpor_test");
-    }
-
-    public void OnClickSearchButton()
-    {
-        SceneManager.LoadScene("menu");
-    }
-
-    //public void GetEditorManager()
-    //{
-    //    editorManager = GameObject.Find("EditorManager");
-    //    if (editorManager != null)
-    //    {
-    //        editorManagerScript = editorManager.GetComponent<EditorManager>();
-    //    }
-    //}
 }

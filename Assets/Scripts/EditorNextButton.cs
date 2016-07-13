@@ -4,26 +4,26 @@ using UnityEngine.SceneManagement;
 
 public class EditorNextButton : MonoBehaviour
 {
-    private GameObject editorManager;
-    private EditorManager editorManagerScript;
+   // private GameObject editorManager;
+    //private EditorManager editorManagerScript;
 
     void Awake()
     {
-        GetEditorManager();
+       // GetEditorManager();
     }
 
     public void OnClickNextButton()
     {
-        editorManagerScript.SetEditMoleculeJSON();
+        EditorManager.Instance.SetEditMoleculeJSON();
         SceneManager.LoadScene("save");
     }
 
-    public void GetEditorManager()
-    {
-        editorManager = GameObject.Find("EditorManager");
-        if (editorManager != null)
-        {
-            editorManagerScript = editorManager.GetComponent<EditorManager>();
-        }
-    }
+    //public void GetEditorManager()
+    //{
+    //    editorManager = GameObject.Find("EditorManager");
+    //    if (editorManager != null)
+    //    {
+    //        editorManagerScript = editorManager.GetComponent<EditorManager>();
+    //    }
+    //}
 }

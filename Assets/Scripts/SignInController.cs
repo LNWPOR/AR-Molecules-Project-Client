@@ -13,31 +13,31 @@ public class SignInController : MonoBehaviour
     public Button signIpBtn;
     public Button signUpBtn;
 
-    private GameObject networkManager;
-    private NetworkManager networkManagerScript;
+    //private GameObject networkManager;
+    //private NetworkManager networkManagerScript;
 
-    private GameObject userManager;
-    private UserManager userManagerScript;
+    //private GameObject userManager;
+    //private UserManager userManagerScript;
 
     void Awake()
     {
-        GetNetworkManager();
-        GetUserManager();
+        //GetNetworkManager();
+        //GetUserManager();
         signIpBtn.onClick.AddListener(() => OnClickSignIn());
         signUpBtn.onClick.AddListener(() => OnClickSingUp());
     }
 
-    private void GetNetworkManager()
-    {
-        networkManager = GameObject.Find("NetworkManager");
-        networkManagerScript = networkManager.GetComponent<NetworkManager>();
-    }
+    //private void GetNetworkManager()
+    //{
+    //    networkManager = GameObject.Find("/*NetworkManager*/");
+    //    networkManagerScript = networkManager.GetComponent<NetworkManager>();
+    //}
 
-    private void GetUserManager()
-    {
-        userManager = GameObject.Find("UserManager");
-        userManagerScript = userManager.GetComponent<UserManager>();   
-    }
+    //private void GetUserManager()
+    //{
+    //    userManager = GameObject.Find("UserManager");
+    //    userManagerScript = userManager.GetComponent<UserManager>();   
+    //}
 
     void Start()
     {
@@ -47,10 +47,10 @@ public class SignInController : MonoBehaviour
 
     private void SocketOn()
     {
-        networkManagerScript.Socket.On("NET_AVARIABLE", (SocketIOEvent evt) => {
+        NetworkManager.Instance.Socket.On("NET_AVARIABLE", (SocketIOEvent evt) => {
             Debug.Log("Net Avariable");
         });
-        networkManagerScript.Socket.On("CONNECTED", OnUserSignIn);
+        NetworkManager.Instance.Socket.On("CONNECTED", OnUserSignIn);
     }
 
     private void OnUserSignIn(SocketIOEvent evt)
@@ -63,7 +63,7 @@ public class SignInController : MonoBehaviour
         usrData.id = Converter.JsonToString(evt.data.GetField("id").ToString());
         usrData.username = Converter.JsonToString(evt.data.GetField("username").ToString());
         
-        userManagerScript.userData = usrData;
+        UserManager.Instance.userData = usrData;
 
         
 
@@ -82,7 +82,7 @@ public class SignInController : MonoBehaviour
         JSONObject data = new JSONObject();
         data.AddField("username", usernameInputField.text);
         data.AddField("password", passwordInputField.text);
-        networkManagerScript.Socket.Emit("SIGNIN", data);
+        NetworkManager.Instance.Socket.Emit("SIGNIN", data);
     }
 
     private void OnClickSingUp()

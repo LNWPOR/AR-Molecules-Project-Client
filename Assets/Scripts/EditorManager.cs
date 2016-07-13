@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class EditorManager : MonoBehaviour {
 
@@ -9,14 +10,36 @@ public class EditorManager : MonoBehaviour {
     //private GameObject networkManager;
     //private NetworkManager networkManagerScript;
 
+    private static EditorManager _instance;
+    public static EditorManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new GameObject("EditorManager").AddComponent<EditorManager>();
+            }
+            return _instance;
+        }
+    }
+
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
         //GetNetworkManager();
     }
 
+    void GetMainEditMolcule()
+    {
+        if (mainEditMolecule == null)
+        {
+            mainEditMolecule = GameObject.Find("MainMolecule");
+        }
+    }
+
     public void SetEditMoleculeJSON()
     {
+        GetMainEditMolcule();
         JSONObject moleculeObjectList = new JSONObject();
         Transform[] moleculeChilds = mainEditMolecule.GetComponentsInChildren<Transform>();
         foreach (Transform moleculeChild in moleculeChilds)

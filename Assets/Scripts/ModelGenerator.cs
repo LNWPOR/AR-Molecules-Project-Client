@@ -7,7 +7,7 @@ public class ModelGenerator : MonoBehaviour {
     public GameObject[] elementPrefabs;
     public GameObject stickGroupPrefabs;
 
-    public void GenerateAtom(string atomName, Vector3 atomPosition, Quaternion atomRotation, GameObject mainMolecule)
+    public void GenerateAtom(string atomName, Vector3 atomPosition, Quaternion atomRotation, GameObject mainMolecule, bool canClick)
     {
         //Debug.Log(atomName + ":" + atomPosition + ":" + atomRotation + ":" + mainMolecule);
         GameObject atomPrefabForGenerate = Array.Find(elementPrefabs, s => s.name.Equals(atomName));
@@ -17,7 +17,7 @@ public class ModelGenerator : MonoBehaviour {
             atomGenerated.name = atomName;
             atomGenerated.transform.parent = mainMolecule.transform;
             AtomController atomGeneratedScript = atomGenerated.GetComponent<AtomController>();
-            atomGeneratedScript.canClick = false;
+            atomGeneratedScript.canClick = canClick;
             atomGeneratedScript.DestroyElectron();
         }
     }
