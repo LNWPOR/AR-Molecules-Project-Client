@@ -12,32 +12,32 @@ public class SaveSceneButton : MonoBehaviour
     private bool isEmpty;
 
     public Text userNameText;
-    private GameObject userManager;
-    private UserManager userManagerScript;
+    //private GameObject userManager;
+    //private UserManager userManagerScript;
 
-    private GameObject editorManager;
-    private EditorManager editorManagerScript;
+    //private GameObject editorManager;
+    //private EditorManager editorManagerScript;
 
-    private GameObject networkManager;
-    private NetworkManager networkManagerScript;
+    //private GameObject networkManager;
+    //private NetworkManager networkManagerScript;
 
     void Awake()
     {
-        GetNetworkManager();
-        GetUserManager();
-        GetEditorManager();
+        //GetNetworkManager();
+        //GetUserManager();
+        //GetEditorManager();
     }
 
-    private void GetNetworkManager()
-    {
-        networkManager = GameObject.Find("NetworkManager");
-        networkManagerScript = networkManager.GetComponent<NetworkManager>();
-    }
+    //private void GetNetworkManager()
+    //{
+    //    networkManager = GameObject.Find("NetworkManager");
+    //    networkManagerScript = networkManager.GetComponent<NetworkManager>();
+    //}
 
     void Start()
     {
         isEmpty = true;
-        userNameText.text = userManagerScript.userData.username;
+        userNameText.text = UserManager.Instance.userData.username;
     }
 
     void Update()
@@ -57,30 +57,30 @@ public class SaveSceneButton : MonoBehaviour
     {
         if (!isEmpty)
         {
-            editorManagerScript.mainEditMoleculeJSON.AddField("name", nameInputField.text);
-            editorManagerScript.mainEditMoleculeJSON.AddField("ownerID", userManagerScript.userData.id);
-            networkManagerScript.Socket.Emit("ADD_MOLECULE", editorManagerScript.mainEditMoleculeJSON);
+            EditorManager.Instance.mainEditMoleculeJSON.AddField("name", nameInputField.text);
+            EditorManager.Instance.mainEditMoleculeJSON.AddField("ownerID", UserManager.Instance.userData.id);
+            NetworkManager.Instance.Socket.Emit("ADD_MOLECULE", EditorManager.Instance.mainEditMoleculeJSON);
             SceneManager.LoadScene("Test");
         }
     }
 
     public void OnClickCancelButton()  // may not use
     {
-        SceneManager.LoadScene("Edit");
+        SceneManager.LoadScene("Editor");
     }
 
-    private void GetUserManager()
-    {
-        userManager = GameObject.Find("UserManager");
-        userManagerScript = userManager.GetComponent<UserManager>();
-    }
+    //private void GetUserManager()
+    //{
+    //    userManager = GameObject.Find("UserManager");
+    //    userManagerScript = userManager.GetComponent<UserManager>();
+    //}
 
-    public void GetEditorManager()
-    {
-        editorManager = GameObject.Find("EditorManager");
-        if (editorManager != null)
-        {
-            editorManagerScript = editorManager.GetComponent<EditorManager>();
-        }
-    }
+    //public void GetEditorManager()
+    //{
+    //    editorManager = GameObject.Find("EditorManager");
+    //    if (editorManager != null)
+    //    {
+    //        editorManagerScript = editorManager.GetComponent<EditorManager>();
+    //    }
+    //}
 }

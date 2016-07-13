@@ -5,22 +5,22 @@ using UnityEngine.UI;
 public class UserNameText : MonoBehaviour {
 
     public Text userNameText;
-    private GameObject userManager;
-    private UserManager userManagerScript;
+    //private GameObject userManager;
+    //private UserManager userManagerScript;
 
 
     void Awake()
     {
-        GetUserManager();
+       //GetUserManager();
     }
 
 	void Start () {
-        userNameText.text = userManagerScript.userData.username;
+        userNameText.text = UserManager.Instance.userData.username;
 	}
 
-    private void GetUserManager()
-    {
-        userManager = GameObject.Find("UserManager");
-        userManagerScript = userManager.GetComponent<UserManager>();
-    }
+    //private void GetUserManager()
+    //{
+    //    userManager = GameObject.Find("UserManager");
+    //    userManagerScript = userManager.GetComponent<UserManager>();
+    //}
 }

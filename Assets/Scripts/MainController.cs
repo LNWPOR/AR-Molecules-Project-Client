@@ -13,8 +13,8 @@ public class MainController : MonoBehaviour
     public Button backBtn;
     public Text moleculeNameText;
 
-    private GameObject mainManager;
-    private MainManager mainManagerScript;
+    //private GameObject mainManager;
+    //private MainManager mainManagerScript;
 
     public GameObject mainMolecule;
 
@@ -26,7 +26,7 @@ public class MainController : MonoBehaviour
 
     void Awake()
     {
-        GetMainManager();
+        //GetMainManager();
         GetModelGenerator();
         backBtn.onClick.AddListener(() => OnClickBack());
     }
@@ -40,11 +40,11 @@ public class MainController : MonoBehaviour
         }
     }
 
-    private void GetMainManager()
-    {
-        mainManager = GameObject.Find("MainManager");
-        mainManagerScript = mainManager.GetComponent<MainManager>();
-    }
+    //private void GetMainManager()
+    //{
+    //    mainManager = GameObject.Find("MainManager");
+    //    mainManagerScript = mainManager.GetComponent<MainManager>();
+    //}
 
     void Start()
     {
@@ -59,25 +59,25 @@ public class MainController : MonoBehaviour
 
     private void SetUIText()
     {
-        moleculeNameText.text = Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("name").ToString());
+        moleculeNameText.text = Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("name").ToString());
     }
 
     private void SetMainMolecule()
     {
         //Debug.Log(evt.data);
         //mainMolecule.name = editorManagerScript.AXEName;
-        for (int i = 0; i < mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList").Count; i++)
+        for (int i = 0; i < MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList").Count; i++)
         {
-            string moleculeObjectName = Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("name").ToString());
-            Vector3 moleculeObjectPosition = Converter.JsonToVecter3(Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("position").ToString()));
-            Quaternion moleculeObjectRotation = Converter.JsonToRotation(Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("rotation").ToString()));
+            string moleculeObjectName = Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("name").ToString());
+            Vector3 moleculeObjectPosition = Converter.JsonToVecter3(Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("position").ToString()));
+            Quaternion moleculeObjectRotation = Converter.JsonToRotation(Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("rotation").ToString()));
 
-            if (Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
+            if (Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
             {
                 //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
                 modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
             }
-            else if (Converter.JsonToString(mainManagerScript.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
+            else if (Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
             {
                 //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
                 modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);

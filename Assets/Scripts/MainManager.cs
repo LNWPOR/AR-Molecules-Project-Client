@@ -9,6 +9,20 @@ public class MainManager : MonoBehaviour
     //public List<MoleculeData> moleculeList;
     public List<JSONObject> moleculesJSONList;
 
+    private static MainManager _instance;
+    public static MainManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new GameObject("MainManager").AddComponent<MainManager>();
+            }
+
+            return _instance;
+        }
+    }
+
     public void Awake()
     {
         DontDestroyOnLoad(gameObject);
