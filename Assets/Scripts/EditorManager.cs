@@ -25,7 +25,7 @@ public class EditorManager : MonoBehaviour {
 
     void Awake()
     {
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
         //GetNetworkManager();
     }
 
