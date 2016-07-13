@@ -10,7 +10,7 @@ public class PeriodicTableManager : MonoBehaviour {
 
     public void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         InitPeriodicTable();
         //Debug.Log(periodicTableList[0]);
         //Debug.Log(periodicTableList[0].name +":"+ periodicTableList[0].groupNumber + ":" + periodicTableList[0].atomName + ":" + periodicTableList[0].mass + ":" + periodicTableList[0].en );

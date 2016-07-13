@@ -17,6 +17,6 @@ public class TestBackButton : MonoBehaviour
     // Update is called once per frame
     public void OnClickBackButton()
     {
-        SceneManager.LoadScene("Edit");
+        SceneManager.LoadScene("Editor");
     }
 }
