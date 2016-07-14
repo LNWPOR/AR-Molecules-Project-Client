@@ -27,7 +27,7 @@ public class MainManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        moleculesJSONList = new List<JSONObject>();
+        //moleculesJSONList = new List<JSONObject>();
         //moleculeList = new List<MoleculeData>();
         //AddMoleculeToList("BeCl2");
         //AddMoleculeToList("SO3");

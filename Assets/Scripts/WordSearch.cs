@@ -26,6 +26,7 @@ public class WordSearch : MonoBehaviour
     {
         //GetNetworkManager();
         //GetMainManager();
+        MainManager.Instance.moleculesJSONList = new List<JSONObject>();
     }
 
     //private void GetNetworkManager()
@@ -51,8 +52,10 @@ public class WordSearch : MonoBehaviour
 
     private void AddMoleculeList(SocketIOEvent evt)
     {
+        Debug.Log("gg");
         //Debug.Log(evt.data) ;
-        MainManager.Instance.moleculesJSONList.Add(evt.data);
+        //Debug.Log(Converter.JsonToString(evt.data.GetField("name").ToString()));
+        //MainManager.Instance.moleculesJSONList.Add(evt.data);
     }
 
     private IEnumerator WaitToEmitGetMainEditMoleculeJSON(float time)
@@ -116,8 +119,8 @@ public class WordSearch : MonoBehaviour
                 newButton.transform.localScale = new Vector3(1f, 1f, 1f);
                 NewButtonController newButtonControllerScript = newButton.GetComponent<NewButtonController>();
                 newButtonControllerScript.moleculeName = Converter.JsonToString(MainManager.Instance.moleculesJSONList[(int)possibleWords[i]].GetField("name").ToString());
-        //newButton.GetComponentsInChildren<Text>()[0].text = MainManager.Instance.moleculeList[(int)possibleWords[i]].name;
-        newButtonList.Add(newButton);
+                //newButton.GetComponentsInChildren<Text>()[0].text = MainManager.Instance.moleculeList[(int)possibleWords[i]].name;
+                newButtonList.Add(newButton);
             }
             
         }

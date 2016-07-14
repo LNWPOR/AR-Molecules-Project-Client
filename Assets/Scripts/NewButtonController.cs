@@ -27,7 +27,7 @@ public class NewButtonController : MonoBehaviour {
         mainManagerScript = mainManager.GetComponent<MainManager>();
     }
 
-    public void onClickThisMoleculeName()
+    public void OnClickThisMoleculeName()
     {
         //Debug.Log(moleculeName);
         mainManagerScript.moleculeJSONSelected = mainManagerScript.moleculesJSONList.Find(x => Converter.JsonToString(x.GetField("name").ToString()).Equals(moleculeName));
