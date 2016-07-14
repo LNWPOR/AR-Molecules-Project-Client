@@ -6,8 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class LNWPOR : MonoBehaviour {
 
+    public GameObject socketIOPrefab;
+
 	void Start () {
-        SocketOn();
+        if (GameObject.Find("SocketIO") == null)
+        {
+            GameObject socketIOGenerated = Instantiate(socketIOPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+            socketIOGenerated.name = "SocketIO";
+        }
+        //if (NetworkManager.Instance.count == 0)
+        //{
+        //    SocketOn();
+        //    NetworkManager.Instance.count += 1;
+        //}
+        
         StartCoroutine(WaitToEmitGetMainEditMoleculeJSON(1f));
     }
 
@@ -35,6 +47,7 @@ public class LNWPOR : MonoBehaviour {
 
     public void OnClickRefreshButton()
     {
-        SceneManager.LoadScene("LNWPOR");
+       SceneManager.LoadScene("LNWPOR");
+       //NetworkManager.Instance.Socket.Emit("GET_All_mainEditMoleculeJSON");
     }
 }

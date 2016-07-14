@@ -4,9 +4,10 @@ using SocketIO;
 
 public class NetworkManager : MonoBehaviour
 {
-
     private static NetworkManager _instance;
     private SocketIOComponent _socket;
+
+    public int countSocketOnListenerForMenuScene = 0;
 
     public static NetworkManager Instance
     {

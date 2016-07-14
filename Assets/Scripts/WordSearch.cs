@@ -49,15 +49,20 @@ public class WordSearch : MonoBehaviour
 
     private void SocketOn()
     {
-        NetworkManager.Instance.Socket.On("GET_All_mainEditMoleculeJSON", AddMoleculeList);
+        if (NetworkManager.Instance.countSocketOnListenerForMenuScene == 0)
+        {
+            NetworkManager.Instance.Socket.On("GET_All_mainEditMoleculeJSON", AddMoleculeList);
+            NetworkManager.Instance.countSocketOnListenerForMenuScene += 1;
+        }
+        
     }
 
     private void AddMoleculeList(SocketIOEvent evt)
     {
-        Debug.Log("gg");
+        //Debug.Log("gg");
         //Debug.Log(evt.data) ;
         //Debug.Log(Converter.JsonToString(evt.data.GetField("name").ToString()));
-       // MainManager.Instance.moleculesJSONList.Add(evt.data);
+        MainManager.Instance.moleculesJSONList.Add(evt.data);
     }
 
     private IEnumerator WaitToEmitGetMainEditMoleculeJSON(float time)
