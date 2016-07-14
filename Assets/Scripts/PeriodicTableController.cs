@@ -5,6 +5,7 @@ using System;
 
 public class PeriodicTableController : MonoBehaviour
 {
+    public GameObject mainEditMolecule;
     public Transform periodicTablePanel;
     public Button searchButton;
     public Button testButton;
@@ -92,7 +93,7 @@ public class PeriodicTableController : MonoBehaviour
     {
         periodicTablePanelIsShow = false;
         anim.Play("PeriodicTableSlideOut");
-        SetButtonHideOrShow(true);
+        SetShowObject(true);
         //Time.timeScale = 1;
     }
     public void OpenPeriodicTable()
@@ -106,7 +107,7 @@ public class PeriodicTableController : MonoBehaviour
         anim.enabled = true;
         anim.Play("PeriodicTableSlideIn");
         periodicTablePanelIsShow = true;
-        SetButtonHideOrShow(false);
+        SetShowObject(false);
         //Time.timeScale = 0;
     }
 
@@ -119,6 +120,13 @@ public class PeriodicTableController : MonoBehaviour
         Array.Find(elementDetailPanelText, s => s.name.Equals("AtomEnText")).text = "";
     }
 
+
+    public void SetShowObject(bool isShow)
+    {
+        SetButtonHideOrShow(isShow);
+        SetMoleculeHideOrShow(isShow);
+    }
+
     private void SetButtonHideOrShow(bool setButton)
     {
         searchButton.gameObject.SetActive(setButton);
@@ -126,5 +134,10 @@ public class PeriodicTableController : MonoBehaviour
         nextButton.gameObject.SetActive(setButton);
         leftArrowButton.gameObject.SetActive(setButton);
         rightArrowButton.gameObject.SetActive(setButton);
+    }
+
+    private void SetMoleculeHideOrShow(bool setMolecule)
+    {
+        mainEditMolecule.SetActive(setMolecule);
     }
 }

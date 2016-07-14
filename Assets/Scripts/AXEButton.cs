@@ -6,14 +6,30 @@ public class AXEButton : MonoBehaviour {
 	public GameObject mainEditMolecule;
     public Transform axePrefab;
 
+    private GameObject hamburgerButton;
+    private HamburgerButton hamburgerButtonScript;
+
+    private bool hide = true;
+
+
     void Start () {
-	
-	}
-	
-	public void OnClickAXEButton()
+        GetHamburgerButton();
+    }
+
+    private void GetHamburgerButton()
+    {
+        hamburgerButton = GameObject.Find("MenuButton"); // Fine (Object in hierarchy)
+        if (hamburgerButton != null)
+        {
+            hamburgerButtonScript = hamburgerButton.GetComponent<HamburgerButton>();
+        }
+    }
+
+    public void OnClickAXEButton()
     {
         DestroyMainEditMoleculeChilds();
         AddMainEditMoleculeChilds();
+        hamburgerButtonScript.PopUpPanelSlide(hide);
     }
 
     private void DestroyMainEditMoleculeChilds()
@@ -46,4 +62,5 @@ public class AXEButton : MonoBehaviour {
             }
         }
     }
+   
 }
