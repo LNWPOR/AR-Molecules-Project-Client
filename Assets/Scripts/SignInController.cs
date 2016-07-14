@@ -13,6 +13,8 @@ public class SignInController : MonoBehaviour
     public Button signIpBtn;
     public Button signUpBtn;
 
+    public GameObject socketIOPrefab;
+
     //private GameObject networkManager;
     //private NetworkManager networkManagerScript;
 
@@ -21,11 +23,18 @@ public class SignInController : MonoBehaviour
 
     void Awake()
     {
+        if (GameObject.Find("SocketIO") == null)
+        {
+            GameObject socketIOGenerated = Instantiate(socketIOPrefab, new Vector3(0f, 0f, 0f), Quaternion.identity) as GameObject;
+            socketIOGenerated.name = "SocketIO";
+        }
+        
         //GetNetworkManager();
         //GetUserManager();
         signIpBtn.onClick.AddListener(() => OnClickSignIn());
         signUpBtn.onClick.AddListener(() => OnClickSingUp());
     }
+
 
     //private void GetNetworkManager()
     //{
@@ -38,10 +47,8 @@ public class SignInController : MonoBehaviour
     //    userManager = GameObject.Find("UserManager");
     //    userManagerScript = userManager.GetComponent<UserManager>();   
     //}
-
     void Start()
     {
-        
         SocketOn();
     }
 

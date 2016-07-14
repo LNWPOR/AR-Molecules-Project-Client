@@ -6,6 +6,8 @@ using System;
 public class PeriodicTableController : MonoBehaviour
 {
     public Transform periodicTablePanel;
+    public Button searchButton;
+    public Button testButton;
     public Button nextButton;
     public Button leftArrowButton;
     public Button rightArrowButton;
@@ -119,6 +121,8 @@ public class PeriodicTableController : MonoBehaviour
 
     private void SetButtonHideOrShow(bool setButton)
     {
+        searchButton.gameObject.SetActive(setButton);
+        testButton.gameObject.SetActive(setButton);
         nextButton.gameObject.SetActive(setButton);
         leftArrowButton.gameObject.SetActive(setButton);
         rightArrowButton.gameObject.SetActive(setButton);

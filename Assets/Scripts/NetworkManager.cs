@@ -2,7 +2,8 @@
 using System.Collections;
 using SocketIO;
 
-public class NetworkManager : MonoBehaviour {
+public class NetworkManager : MonoBehaviour
+{
 
     private static NetworkManager _instance;
     private SocketIOComponent _socket;
@@ -20,13 +21,15 @@ public class NetworkManager : MonoBehaviour {
         }
     }
 
-    public SocketIOComponent Socket{
-		get{
-			GameObject goSocket = GameObject.Find("SocketIO");
-			_socket = goSocket.GetComponent<SocketIOComponent>();
-			return _socket;
-		}
-	}
+    public SocketIOComponent Socket
+    {
+        get
+        {
+            GameObject goSocket = GameObject.Find("SocketIO");
+            _socket = goSocket.GetComponent<SocketIOComponent>();
+            return _socket;
+        }
+    }
 
     void Awake()
     {

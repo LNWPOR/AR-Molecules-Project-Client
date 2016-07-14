@@ -27,6 +27,7 @@ public class WordSearch : MonoBehaviour
         //GetNetworkManager();
         //GetMainManager();
         MainManager.Instance.moleculesJSONList = new List<JSONObject>();
+        NetworkManager.Instance.Socket.Emit("GET_All_mainEditMoleculeJSON");
     }
 
     //private void GetNetworkManager()
@@ -42,7 +43,8 @@ public class WordSearch : MonoBehaviour
         //possibleWords = new ArrayList(mainManagerScript.moleculeList.Count);
         possibleWords = new ArrayList(MainManager.Instance.moleculesJSONList.Count);
         newButtonList = new List<Button>();
-        StartCoroutine(WaitToEmitGetMainEditMoleculeJSON(1f));
+        //StartCoroutine(WaitToEmitGetMainEditMoleculeJSON(1f));
+        
     }
 
     private void SocketOn()
@@ -55,7 +57,7 @@ public class WordSearch : MonoBehaviour
         Debug.Log("gg");
         //Debug.Log(evt.data) ;
         //Debug.Log(Converter.JsonToString(evt.data.GetField("name").ToString()));
-        //MainManager.Instance.moleculesJSONList.Add(evt.data);
+       // MainManager.Instance.moleculesJSONList.Add(evt.data);
     }
 
     private IEnumerator WaitToEmitGetMainEditMoleculeJSON(float time)
