@@ -5,13 +5,15 @@ using System.Collections.Generic;
 
 public class HamburgerButton : MonoBehaviour
 {
-
+    public GameObject mainEditMolecule;
+    public Button leftArrowButton;
+    public Button rightArrowButton;
+    public Button testButton;
     public GameObject panelMenu;
     //animator reference
     private Animator anim;
-    //variable for checking if the game is paused 
-    private bool isPop;
-    // Use this for initialization
+    public bool isPop;
+
 
     // Use this for initialization
     void Start()
@@ -22,6 +24,7 @@ public class HamburgerButton : MonoBehaviour
         anim = panelMenu.GetComponent<Animator>();
         //disable it on start to stop it from playing the default animation
         anim.enabled = false;
+
     }
 
     // Update is called once per frame
@@ -32,18 +35,18 @@ public class HamburgerButton : MonoBehaviour
 
     public void OnClickHambergerButton()
     {
-        PopUpPanelSlide();
+        PopUpPanelSlide(isPop);
     }
 
-    public void PopUpPanelSlide()
+    public void PopUpPanelSlide(bool isSlide)
     {
-        if (!isPop)
+        if (!isSlide)
         {
             SlideInEvent();
             isPop = true;
             Debug.Log("eiei ispop = false");
         }
-        else if (isPop)
+       else if (isSlide)
         {
             SlideOutEvent();
             isPop = false;
@@ -59,6 +62,7 @@ public class HamburgerButton : MonoBehaviour
         anim.Play("SlideIn");
         //freeze the timescale
         //Time.timeScale = 0;
+        SetShowObject(false);
     }
 
     public void SlideOutEvent()
@@ -69,6 +73,24 @@ public class HamburgerButton : MonoBehaviour
         anim.Play("SlideOut");
         //freeze the timescale
         //Time.timeScale = 0;
+        SetShowObject(true);
+    }
+
+    public void SetShowObject(bool isShow)
+    {
+        SetButtonHideOrShow(isShow);
+        SetMoleculeHideOrShow(isShow);
+    }
+
+    private void SetButtonHideOrShow(bool setButton)
+    {
+        leftArrowButton.gameObject.SetActive(setButton);
+        rightArrowButton.gameObject.SetActive(setButton);
+        testButton.gameObject.SetActive(setButton);
+    }
+    private void SetMoleculeHideOrShow(bool setMolecule)
+    {
+        mainEditMolecule.SetActive(setMolecule);
     }
 
 }
