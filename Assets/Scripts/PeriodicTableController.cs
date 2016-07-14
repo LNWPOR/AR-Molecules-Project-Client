@@ -8,6 +8,7 @@ public class PeriodicTableController : MonoBehaviour
     public GameObject mainEditMolecule;
     public Transform periodicTablePanel;
     public Button searchButton;
+    public Button menuButton;
     public Button testButton;
     public Button nextButton;
     public Button leftArrowButton;
@@ -129,6 +130,7 @@ public class PeriodicTableController : MonoBehaviour
 
     private void SetButtonHideOrShow(bool setButton)
     {
+        menuButton.gameObject.SetActive(setButton);
         searchButton.gameObject.SetActive(setButton);
         testButton.gameObject.SetActive(setButton);
         nextButton.gameObject.SetActive(setButton);
