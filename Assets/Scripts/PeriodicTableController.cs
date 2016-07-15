@@ -142,4 +142,19 @@ public class PeriodicTableController : MonoBehaviour
     {
         mainEditMolecule.SetActive(setMolecule);
     }
+
+    public void TurnOnOnClickAllAtom()
+    {
+        Transform[] atoms = mainEditMolecule.GetComponentsInChildren<Transform>();
+
+        foreach (Transform atom in atoms)
+        {
+            if (atom.tag.Equals("Atom"))
+            {
+                AtomController atomControllerScript = atom.GetComponent<AtomController>();
+                atomControllerScript.canClick = true;
+            }
+
+        }
+    }
 }
