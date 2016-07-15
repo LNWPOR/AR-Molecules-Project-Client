@@ -65,7 +65,7 @@ public class SaveSceneButton : MonoBehaviour
         else if(isEmpty)
         {
             nameInputField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "<b>  Please fill Molecule name!</b>";
-            nameInputField.GetComponent<InputField>().placeholder.color = new Color(0F, 255F, 255F);
+            nameInputField.GetComponent<InputField>().placeholder.color = new Color(230F, 255F, 0F);
             Debug.Log("empty");
         }
     }
