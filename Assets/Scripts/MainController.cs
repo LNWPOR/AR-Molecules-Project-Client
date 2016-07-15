@@ -83,5 +83,7 @@ public class MainController : MonoBehaviour
                 modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
             }
         }
+
+        mainMolecule.transform.position = new Vector3(0f, 12.5f, 0f);
     }
 }

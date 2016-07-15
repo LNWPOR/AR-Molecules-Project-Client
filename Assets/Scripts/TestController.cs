@@ -51,6 +51,8 @@ public class TestController : MonoBehaviour {
                 modelGeneratorScript.GenerateStickGroup(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule);
             }
         }
+
+        mainMolecule.transform.position = new Vector3(0f, 12.5f, 0f);
     }
 
     public void OnClickBackButton()
