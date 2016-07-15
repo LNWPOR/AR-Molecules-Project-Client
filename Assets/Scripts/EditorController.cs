@@ -7,11 +7,16 @@ public class EditorController : MonoBehaviour {
     private GameObject modelGenerator;
     private ModelGenerator modelGeneratorScript;
 
+    public bool canTest;
+    public bool canSave;
+
     void Awake()
     {
         //DontDestroyOnLoad(EditorManager.Instance.gameObject);
         EditorManager.Instance.mainEditMolecule = mainEditMolecule;
         GetModelGenerator();
+        canTest = false;
+        canSave = false;
     }
 
     private void GetModelGenerator()
@@ -29,6 +34,43 @@ public class EditorController : MonoBehaviour {
         {
             SetMainMolecule();
         }
+    }
+
+    void Update()
+    {
+        CheckCanTestSave();
+    }
+
+    private void CheckCanTestSave()
+    {
+        Transform[] mainEditMoleculeChilds = mainEditMolecule.GetComponentsInChildren<Transform>();
+        int countAtomNotSet = 0;
+        if (mainEditMoleculeChilds.Length == 1)
+        {
+            canTest = false;
+            canSave = false;
+        }
+        else
+        {
+            foreach (Transform mainEditMoleculeChild in mainEditMoleculeChilds)
+            {
+                if (mainEditMoleculeChild.gameObject.name.Equals("Atom"))
+                {
+                    countAtomNotSet += 1;
+                }
+            }
+            if (countAtomNotSet == 0)
+            {
+                canTest = true;
+                canSave = true;
+            }
+            else
+            {
+                canTest = false;
+                canSave = false;
+            }
+        }
+        
     }
 
     private void SetMainMolecule()
