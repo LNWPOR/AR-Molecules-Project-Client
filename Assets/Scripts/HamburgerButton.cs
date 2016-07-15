@@ -44,13 +44,13 @@ public class HamburgerButton : MonoBehaviour
         {
             SlideInEvent();
             isPop = true;
-            Debug.Log("eiei ispop = false");
+            //Debug.Log("eiei ispop = false");
         }
        else if (isSlide)
         {
             SlideOutEvent();
             isPop = false;
-            Debug.Log("eiei ispop = ture");
+            //Debug.Log("eiei ispop = ture");
         }
     }
 
