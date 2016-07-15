@@ -62,6 +62,12 @@ public class SaveSceneButton : MonoBehaviour
             NetworkManager.Instance.Socket.Emit("ADD_MOLECULE", EditorManager.Instance.mainEditMoleculeJSON);
             SceneManager.LoadScene("Test");
         }
+        else if(isEmpty)
+        {
+            nameInputField.GetComponent<InputField>().placeholder.GetComponent<Text>().text = "<b>  Please fill Molecule name!</b>";
+            nameInputField.GetComponent<InputField>().placeholder.color = new Color(0F, 255F, 255F);
+            Debug.Log("empty");
+        }
     }
 
     public void OnClickCancelButton()  // may not use
@@ -69,18 +75,4 @@ public class SaveSceneButton : MonoBehaviour
         SceneManager.LoadScene("Editor");
     }
 
-    //private void GetUserManager()
-    //{
-    //    userManager = GameObject.Find("UserManager");
-    //    userManagerScript = userManager.GetComponent<UserManager>();
-    //}
-
-    //public void GetEditorManager()
-    //{
-    //    editorManager = GameObject.Find("EditorManager");
-    //    if (editorManager != null)
-    //    {
-    //        editorManagerScript = editorManager.GetComponent<EditorManager>();
-    //    }
-    //}
 }
