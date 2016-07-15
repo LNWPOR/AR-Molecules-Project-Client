@@ -40,10 +40,18 @@ public class SignUpController : MonoBehaviour
 
     private void OnClickSingUp()
     {
-        JSONObject data = new JSONObject();
-        data.AddField("username", usernameInputField.text);
-        data.AddField("password", passwordInputField.text);
-        networkManagerScript.Socket.Emit("SIGNUP", data);
+        if (usernameInputField.text.Equals("") || passwordInputField.text.Equals(""))
+        {
+            Debug.Log("Please fill username & password");
+        }
+        else
+        {
+            JSONObject data = new JSONObject();
+            data.AddField("username", usernameInputField.text);
+            data.AddField("password", passwordInputField.text);
+            networkManagerScript.Socket.Emit("SIGNUP", data);
+        }
+        
     }
 
     private void OnSignUpReady(SocketIOEvent evt)

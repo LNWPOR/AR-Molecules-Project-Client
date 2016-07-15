@@ -69,14 +69,16 @@ public class SignInController : MonoBehaviour
 
         //Debug.Log("ID = " + evt.data.GetField("id").ToString());
         //Debug.Log("USERNAME = " + evt.data.GetField("username").ToString());
-
-        UserData usrData = new UserData();
-        usrData.id = Converter.JsonToString(evt.data.GetField("id").ToString());
-        usrData.username = Converter.JsonToString(evt.data.GetField("username").ToString());
-        
-        UserManager.Instance.userData = usrData;
-
-        
+        if (Converter.JsonToString(evt.data.GetField("id").ToString()) == null)
+        {
+            Debug.Log("signin fail");
+        }else
+        {
+            UserData usrData = new UserData();
+            usrData.id = Converter.JsonToString(evt.data.GetField("id").ToString());
+            usrData.username = Converter.JsonToString(evt.data.GetField("username").ToString());
+            UserManager.Instance.userData = usrData;
+        }
 
         SceneManager.LoadScene("menu");
     }
@@ -90,10 +92,17 @@ public class SignInController : MonoBehaviour
         // data["name"] = username;
         // NetworkManager.Instance.Socket.Emit("LOGIN",new JSONObject(data));
 
-        JSONObject data = new JSONObject();
-        data.AddField("username", usernameInputField.text);
-        data.AddField("password", passwordInputField.text);
-        NetworkManager.Instance.Socket.Emit("SIGNIN", data);
+        if (usernameInputField.text.Equals("") || passwordInputField.text.Equals(""))
+        {
+            Debug.Log("Please fill username & password");
+        }else
+        {
+            JSONObject data = new JSONObject();
+            data.AddField("username", usernameInputField.text);
+            data.AddField("password", passwordInputField.text);
+            NetworkManager.Instance.Socket.Emit("SIGNIN", data);
+        }
+        
     }
 
     private void OnClickSingUp()
