@@ -8,6 +8,7 @@ public class HamburgerButton : MonoBehaviour
     public GameObject mainEditMolecule;
     public Button leftArrowButton;
     public Button rightArrowButton;
+    public Button searchButton;
     public Button testButton;
     public GameObject panelMenu;
     //animator reference
@@ -63,6 +64,7 @@ public class HamburgerButton : MonoBehaviour
         //freeze the timescale
         //Time.timeScale = 0;
         SetShowObject(false);
+        SetInteractableButton(false);
     }
 
     public void SlideOutEvent()
@@ -74,6 +76,9 @@ public class HamburgerButton : MonoBehaviour
         //freeze the timescale
         //Time.timeScale = 0;
         SetShowObject(true);
+        SetInteractableButton(true);
+
+
     }
 
     public void SetShowObject(bool isShow)
@@ -81,16 +86,22 @@ public class HamburgerButton : MonoBehaviour
         SetButtonHideOrShow(isShow);
         SetMoleculeHideOrShow(isShow);
     }
-
+    
     private void SetButtonHideOrShow(bool setButton)
     {
         leftArrowButton.gameObject.SetActive(setButton);
         rightArrowButton.gameObject.SetActive(setButton);
         testButton.gameObject.SetActive(setButton);
     }
+
     private void SetMoleculeHideOrShow(bool setMolecule)
     {
         mainEditMolecule.SetActive(setMolecule);
+    }
+
+    private void SetInteractableButton(bool setButton)
+    {
+        searchButton.GetComponent<Button>().interactable = setButton;
     }
 
 }

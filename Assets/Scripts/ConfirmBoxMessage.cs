@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class ConfirmBoxMessage : MonoBehaviour
 {
     public Button yesButton;
+    public GameObject mainEditMolecule;
     public Button noButton;
     public Button searchOrEditButton;
     public GameObject confirmPanel;
@@ -24,6 +25,7 @@ public class ConfirmBoxMessage : MonoBehaviour
     {
         isAnswer = true;
         confirmPanel.SetActive(true);
+        SetShowModel(false);
     }
 
     public void OnClickYesButton()
@@ -37,5 +39,11 @@ public class ConfirmBoxMessage : MonoBehaviour
         isAnswer = false;
         Debug.Log("test");
         confirmPanel.SetActive(false);
+        SetShowModel(true);
+    }
+
+    public void SetShowModel(bool isSet)
+    {
+        mainEditMolecule.SetActive(isSet);
     }
 }
