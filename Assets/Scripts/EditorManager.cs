@@ -64,7 +64,9 @@ public class EditorManager : MonoBehaviour {
                 Transform[] stickGroupChilds = moleculeChild.gameObject.GetComponentsInChildren<Transform>();
                 foreach (Transform stickGroupChild in stickGroupChilds)
                 {
-                    if (stickGroupChild.gameObject.tag.Equals("Bond") && stickGroupChild.gameObject.activeInHierarchy)
+                    if (stickGroupChild.gameObject.tag.Equals("Bond") 
+                        || stickGroupChild.gameObject.tag.Equals("Lone")
+                        && stickGroupChild.gameObject.activeInHierarchy)
                     {
                         JSONObject stick = new JSONObject();
                         stick.AddField("name", stickGroupChild.gameObject.name);

@@ -37,7 +37,7 @@ public class ModelGenerator : MonoBehaviour {
         foreach (Transform stickPrefabGeneratedChild in stickPrefabGeneratedChilds)
         {
             
-            if (stickPrefabGeneratedChild.gameObject.tag.Equals("Bond"))
+            if (stickPrefabGeneratedChild.gameObject.tag.Equals("Bond") || stickPrefabGeneratedChild.gameObject.tag.Equals("Lone"))
             {
                 if (stickPrefabGeneratedChild.gameObject.name.Equals(stickName))
                 {
