@@ -12,18 +12,9 @@ public class SignUpController : MonoBehaviour
     public InputField passwordInputField;
     public Button signUpBtn;
     public Button cancelBtn;
-    private GameObject networkManager;
-    private NetworkManager networkManagerScript;
 
     void Awake()
     {
-        GetNetworkManager();
-    }
-
-    void GetNetworkManager()
-    {
-        networkManager = GameObject.Find("NetworkManager");
-        networkManagerScript = networkManager.GetComponent<NetworkManager>();
     }
 
     void Start()
@@ -35,7 +26,11 @@ public class SignUpController : MonoBehaviour
 
     private void SocketOn()
     {
-        networkManagerScript.Socket.On("SIGNUP_READY", OnSignUpReady);
+        if (!NetworkManager.Instance.signUpSceneSocketIsOn)
+        {
+            NetworkManager.Instance.Socket.On("SIGNUP_READY", OnSignUpReady);
+            NetworkManager.Instance.signUpSceneSocketIsOn = true;
+        }
     }
 
     private void OnClickSingUp()
@@ -49,21 +44,20 @@ public class SignUpController : MonoBehaviour
             JSONObject data = new JSONObject();
             data.AddField("username", usernameInputField.text);
             data.AddField("password", passwordInputField.text);
-            networkManagerScript.Socket.Emit("SIGNUP", data);
+            NetworkManager.Instance.Socket.Emit("SIGNUP", data);
         }
         
     }
 
     private void OnSignUpReady(SocketIOEvent evt)
     {
-        int status = Convert.ToInt32(evt.data.GetField("status").ToString());
-        if (status == 1)
+        if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
         {
             SceneManager.LoadScene("signin");
         }
-        else
+        else if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
         {
-            Debug.Log("signup fail");
+            Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
         }
     }
     private void OnClickCancel()

@@ -7,7 +7,11 @@ public class NetworkManager : MonoBehaviour
     private static NetworkManager _instance;
     private SocketIOComponent _socket;
 
-    public int countSocketOnListenerForMenuScene = 0;
+    public bool signInSceneSocketIsOn = false;
+    public bool signUpSceneSocketIsOn = false;
+    public bool menuSceneSocketIsOn = false;
+    public bool saveSceneButtonSocketIsOn = false;
+
 
     public static NetworkManager Instance
     {

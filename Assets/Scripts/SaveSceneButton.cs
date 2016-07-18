@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using SocketIO;
+using System;
 
 public class SaveSceneButton : MonoBehaviour
 {
@@ -10,34 +12,22 @@ public class SaveSceneButton : MonoBehaviour
     public Button cancelButton;
     public InputField nameInputField;
     private bool isEmpty;
-
     public Text userNameText;
-    //private GameObject userManager;
-    //private UserManager userManagerScript;
-
-    //private GameObject editorManager;
-    //private EditorManager editorManagerScript;
-
-    //private GameObject networkManager;
-    //private NetworkManager networkManagerScript;
-
-    void Awake()
-    {
-        //GetNetworkManager();
-        //GetUserManager();
-        //GetEditorManager();
-    }
-
-    //private void GetNetworkManager()
-    //{
-    //    networkManager = GameObject.Find("NetworkManager");
-    //    networkManagerScript = networkManager.GetComponent<NetworkManager>();
-    //}
 
     void Start()
     {
+        SocketOn();
         isEmpty = true;
         userNameText.text = UserManager.Instance.userData.username;
+    }
+
+    private void SocketOn()
+    {
+        if (!NetworkManager.Instance.saveSceneButtonSocketIsOn)
+        {
+            NetworkManager.Instance.Socket.On("SAVED", OnSaved);
+            NetworkManager.Instance.saveSceneButtonSocketIsOn = true;
+        }
     }
 
     void Update()
@@ -52,7 +42,7 @@ public class SaveSceneButton : MonoBehaviour
             Debug.Log("have a molecule name");
         }
     }
-    // Update is called once per frame
+
     public void OnClickSaveButton()
     {
         if (!isEmpty)
@@ -60,7 +50,6 @@ public class SaveSceneButton : MonoBehaviour
             EditorManager.Instance.mainEditMoleculeJSON.AddField("name", nameInputField.text);
             EditorManager.Instance.mainEditMoleculeJSON.AddField("ownerID", UserManager.Instance.userData.id);
             NetworkManager.Instance.Socket.Emit("ADD_MOLECULE", EditorManager.Instance.mainEditMoleculeJSON);
-            SceneManager.LoadScene("Test");
         }
         else if(isEmpty)
         {
@@ -70,9 +59,21 @@ public class SaveSceneButton : MonoBehaviour
         }
     }
 
-    public void OnClickCancelButton()  // may not use
+    public void OnClickCancelButton()
     {
         SceneManager.LoadScene("Editor");
     }
 
+
+    private void OnSaved(SocketIOEvent evt)
+    {
+        if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
+        {
+            SceneManager.LoadScene("Test");
+        }
+        else if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
+        {
+            Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
+        }
+    }
 }

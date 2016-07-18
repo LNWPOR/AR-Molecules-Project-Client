@@ -15,18 +15,9 @@ public class SignInController : MonoBehaviour
 
     public GameObject socketIOPrefab;
 
-    //private GameObject networkManager;
-    //private NetworkManager networkManagerScript;
-
-    //private GameObject userManager;
-    //private UserManager userManagerScript;
-
     void Awake()
     {
         GetSocketIO();
-        
-        //GetNetworkManager();
-        //GetUserManager();
         signIpBtn.onClick.AddListener(() => OnClickSignIn());
         signUpBtn.onClick.AddListener(() => OnClickSingUp());
     }
@@ -40,17 +31,6 @@ public class SignInController : MonoBehaviour
         }
     }
 
-    //private void GetNetworkManager()
-    //{
-    //    networkManager = GameObject.Find("/*NetworkManager*/");
-    //    networkManagerScript = networkManager.GetComponent<NetworkManager>();
-    //}
-
-    //private void GetUserManager()
-    //{
-    //    userManager = GameObject.Find("UserManager");
-    //    userManagerScript = userManager.GetComponent<UserManager>();   
-    //}
     void Start()
     {
         SocketOn();
@@ -58,40 +38,35 @@ public class SignInController : MonoBehaviour
 
     private void SocketOn()
     {
-        NetworkManager.Instance.Socket.On("NET_AVARIABLE", (SocketIOEvent evt) => {
-            Debug.Log("Net Avariable");
-        });
-        NetworkManager.Instance.Socket.On("CONNECTED", OnUserSignIn);
+        if (!NetworkManager.Instance.signInSceneSocketIsOn)
+        {
+            NetworkManager.Instance.Socket.On("NET_AVARIABLE", (SocketIOEvent evt) => {
+                Debug.Log("Net Avariable");
+            });
+            NetworkManager.Instance.Socket.On("CONNECTED", OnUserSignIn);
+            NetworkManager.Instance.signInSceneSocketIsOn = true;
+        }
     }
 
     private void OnUserSignIn(SocketIOEvent evt)
     {
-
         //Debug.Log("ID = " + evt.data.GetField("id").ToString());
         //Debug.Log("USERNAME = " + evt.data.GetField("username").ToString());
-        if (Converter.JsonToString(evt.data.GetField("id").ToString()) == null)
+        if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
         {
-            Debug.Log("signin fail");
-        }else
+            Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
+        }else if(Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
         {
             UserData usrData = new UserData();
             usrData.id = Converter.JsonToString(evt.data.GetField("id").ToString());
             usrData.username = Converter.JsonToString(evt.data.GetField("username").ToString());
             UserManager.Instance.userData = usrData;
-        }
-
-        SceneManager.LoadScene("menu");
+            SceneManager.LoadScene("menu");
+        }  
     }
 
     private void OnClickSignIn()
     {
-        // Debug.Log(usernameInputField.text + " Login");
-        // string username = usernameInputField.text;
-        // Dictionary<string, string> data = new Dictionary<string, string>();
-        // data["username"] = username;
-        // data["name"] = username;
-        // NetworkManager.Instance.Socket.Emit("LOGIN",new JSONObject(data));
-
         if (usernameInputField.text.Equals("") || passwordInputField.text.Equals(""))
         {
             Debug.Log("Please fill username & password");
@@ -102,7 +77,6 @@ public class SignInController : MonoBehaviour
             data.AddField("password", passwordInputField.text);
             NetworkManager.Instance.Socket.Emit("SIGNIN", data);
         }
-        
     }
 
     private void OnClickSingUp()

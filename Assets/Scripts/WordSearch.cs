@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using SocketIO;
+using System;
 
 public class WordSearch : MonoBehaviour
 {
@@ -16,31 +17,16 @@ public class WordSearch : MonoBehaviour
     private List<Button> newButtonList;
     private int maxNewButtonTotal = 5;
 
-    //private GameObject mainManager;
-    //private MainManager mainManagerScript;
-
-    //private GameObject networkManager;
-    //private NetworkManager networkManagerScript;
-
     void Awake()
     {
-        //GetNetworkManager();
-        //GetMainManager();
         MainManager.Instance.moleculesJSONList = new List<JSONObject>();
         NetworkManager.Instance.Socket.Emit("GET_All_mainEditMoleculeJSON");
     }
-
-    //private void GetNetworkManager()
-    //{
-    //    networkManager = GameObject.Find("NetworkManager");
-    //    networkManagerScript = networkManager.GetComponent<NetworkManager>();
-    //}
 
     void Start()
     {
         SocketOn();
         inputField.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
-        //possibleWords = new ArrayList(mainManagerScript.moleculeList.Count);
         possibleWords = new ArrayList(MainManager.Instance.moleculesJSONList.Count);
         newButtonList = new List<Button>();
         //StartCoroutine(WaitToEmitGetMainEditMoleculeJSON(1f));
@@ -49,20 +35,26 @@ public class WordSearch : MonoBehaviour
 
     private void SocketOn()
     {
-        if (NetworkManager.Instance.countSocketOnListenerForMenuScene == 0)
+        if (!NetworkManager.Instance.menuSceneSocketIsOn)
         {
             NetworkManager.Instance.Socket.On("GET_All_mainEditMoleculeJSON", AddMoleculeList);
-            NetworkManager.Instance.countSocketOnListenerForMenuScene += 1;
+            NetworkManager.Instance.menuSceneSocketIsOn = true;
         }
         
     }
 
     private void AddMoleculeList(SocketIOEvent evt)
     {
-        //Debug.Log("gg");
-        //Debug.Log(evt.data) ;
         //Debug.Log(Converter.JsonToString(evt.data.GetField("name").ToString()));
-        MainManager.Instance.moleculesJSONList.Add(evt.data);
+        if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
+        {
+            MainManager.Instance.moleculesJSONList.Add(evt.data);
+        }
+        else if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
+        {
+            Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
+        }
+        
     }
 
     private IEnumerator WaitToEmitGetMainEditMoleculeJSON(float time)
@@ -76,12 +68,6 @@ public class WordSearch : MonoBehaviour
         }
         NetworkManager.Instance.Socket.Emit("GET_All_mainEditMoleculeJSON");
     }
-
-    //private void GetMainManager()
-    //{
-    //    mainManager = GameObject.Find("MainManager");
-    //    mainManagerScript = mainManager.GetComponent<MainManager>();
-    //}
 
     void ValueChangeCheck()
     {
