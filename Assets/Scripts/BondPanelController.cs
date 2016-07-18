@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BondPanelController : MonoBehaviour {
 
+    public Button closeButton;
     // Use this for initialization
     void Start () {
         GetComponent<CanvasGroup>().alpha = 0f; 
@@ -12,4 +14,9 @@ public class BondPanelController : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void OnClickCloseButton()
+    {
+        GetComponent<CanvasGroup>().alpha = 0f;
+    }
 }
