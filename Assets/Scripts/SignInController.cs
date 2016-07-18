@@ -15,11 +15,15 @@ public class SignInController : MonoBehaviour
 
     public GameObject socketIOPrefab;
 
+    public GameObject messageBoxPanel;
+    private MessageBoxController messageBoxControllerScript;
+
     void Awake()
     {
         GetSocketIO();
         signIpBtn.onClick.AddListener(() => OnClickSignIn());
         signUpBtn.onClick.AddListener(() => OnClickSingUp());
+        messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
     }
 
     private void GetSocketIO()
@@ -55,22 +59,44 @@ public class SignInController : MonoBehaviour
         if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
         {
             Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
-        }else if(Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
+            messageBoxPanel.SetActive(true);
+            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
+        }
+        else if(Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
         {
             UserData usrData = new UserData();
             usrData.id = Converter.JsonToString(evt.data.GetField("id").ToString());
             usrData.username = Converter.JsonToString(evt.data.GetField("username").ToString());
             UserManager.Instance.userData = usrData;
-            SceneManager.LoadScene("menu");
-        }  
+
+            messageBoxPanel.SetActive(true);
+            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
+            StartCoroutine(WaitMessageSuccessSignIn(1f));
+        }
     }
+
+    private IEnumerator WaitMessageSuccessSignIn(float time)
+    {
+        float count = 0;
+        while (count < time)
+        {
+            count += Time.deltaTime;
+            // Debug.Log(Mathf.Floor(count));
+            yield return new WaitForEndOfFrame();
+        }
+        SceneManager.LoadScene("menu");
+    }
+
 
     private void OnClickSignIn()
     {
         if (usernameInputField.text.Equals("") || passwordInputField.text.Equals(""))
         {
             Debug.Log("Please fill username & password");
-        }else
+            messageBoxPanel.SetActive(true);
+            messageBoxControllerScript.messageText.text = "Please fill username & password";
+        }
+        else
         {
             JSONObject data = new JSONObject();
             data.AddField("username", usernameInputField.text);

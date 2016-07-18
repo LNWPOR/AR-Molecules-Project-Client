@@ -5,13 +5,16 @@ using UnityEngine.UI;
 public class MessageBoxController : MonoBehaviour {
 
     public Button okButton;
-    // Use this for initialization
+    public Text messageText;
     void Start () {
+        okButton.onClick.AddListener(() => OnClickOkButton());
+        gameObject.SetActive(false);
+    }
+
+    public void OnClickOkButton()
+    {
+        messageText.text = "";
+        gameObject.SetActive(false);
+    }
 	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

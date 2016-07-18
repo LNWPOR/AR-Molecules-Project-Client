@@ -13,8 +13,12 @@ public class SignUpController : MonoBehaviour
     public Button signUpBtn;
     public Button cancelBtn;
 
+    public GameObject messageBoxPanel;
+    private MessageBoxController messageBoxControllerScript;
+
     void Awake()
     {
+        messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
     }
 
     void Start()
@@ -38,6 +42,8 @@ public class SignUpController : MonoBehaviour
         if (usernameInputField.text.Equals("") || passwordInputField.text.Equals(""))
         {
             Debug.Log("Please fill username & password");
+            messageBoxPanel.SetActive(true);
+            messageBoxControllerScript.messageText.text = "Please fill username & password";
         }
         else
         {
@@ -53,15 +59,31 @@ public class SignUpController : MonoBehaviour
     {
         if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
         {
-            SceneManager.LoadScene("signin");
+            messageBoxPanel.SetActive(true);
+            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
+            StartCoroutine(WaitMessageSuccessSignUp(1f));
         }
         else if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
         {
             Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
+            messageBoxPanel.SetActive(true);
+            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
         }
     }
     private void OnClickCancel()
     {
+        SceneManager.LoadScene("signin");
+    }
+
+    private IEnumerator WaitMessageSuccessSignUp(float time)
+    {
+        float count = 0;
+        while (count < time)
+        {
+            count += Time.deltaTime;
+            // Debug.Log(Mathf.Floor(count));
+            yield return new WaitForEndOfFrame();
+        }
         SceneManager.LoadScene("signin");
     }
 }
