@@ -23,7 +23,15 @@ public class StickGroupController : MonoBehaviour {
 
     public void CallBondPopup()
     {
-        bondPanel.GetComponent<CanvasGroup>().alpha = 1f;
+        if(bondPanel != null)
+        {
+            Debug.Log("Find");
+        }
+        else if(bondPanel == null)
+        {
+            Debug.Log("Not Find");
+        }
+        //bondPanel.GetComponent<CanvasGroup>().alpha = 1f;
     }
 
 }
