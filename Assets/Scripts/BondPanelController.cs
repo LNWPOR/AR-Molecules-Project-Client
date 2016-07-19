@@ -19,7 +19,7 @@ public class BondPanelController : MonoBehaviour {
         singleBondButton.onClick.AddListener(() => SetStickGroup("Stick1"));
         doubleBondButton.onClick.AddListener(() => SetStickGroup("Stick2"));
         trippleBondButton.onClick.AddListener(() => SetStickGroup("Stick3"));
-        //lonePairButton.onClick.AddListener(() => SetStickGroup("Electron2"));
+        lonePairButton.onClick.AddListener(() => SetStickGroup("Electron2"));
         delButton.onClick.AddListener(() => SetStickGroup("del"));
     }
 
