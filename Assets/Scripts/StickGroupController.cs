@@ -4,6 +4,7 @@ public class StickGroupController : MonoBehaviour {
 
     private GameObject bondPanelParent;
     private GameObject bondPanel;
+    private BondPanelController bondPanelControllerScript;
 
     void Start () {
         GetBondPanel();
@@ -18,6 +19,7 @@ public class StickGroupController : MonoBehaviour {
             if (bondPanelParentChild.gameObject.name.Equals("BondPanel"))
             {
                 bondPanel = bondPanelParentChild.gameObject;
+                bondPanelControllerScript = bondPanel.GetComponent<BondPanelController>();
             }
         }
     }
@@ -25,9 +27,8 @@ public class StickGroupController : MonoBehaviour {
     void OnMouseDown()
     {
         bondPanel.SetActive(true);
-        gameObject.transform.parent.position = new Vector3(gameObject.transform.parent.position.x,
-                                                            gameObject.transform.parent.position.y,
-                                                            gameObject.transform.parent.position.z + 100f);
+        bondPanelControllerScript.currentEditStickGroup = gameObject;
+        gameObject.transform.parent.gameObject.SetActive(false);
     }
 
 }
