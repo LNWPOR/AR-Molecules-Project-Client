@@ -23,4 +23,5 @@ public class UserNameText : MonoBehaviour {
     //    userManager = GameObject.Find("UserManager");
     //    userManagerScript = userManager.GetComponent<UserManager>();
     //}
+
 }

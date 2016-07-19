@@ -4,9 +4,10 @@ using System.Collections;
 
 public class SignoutController : MonoBehaviour {
 
+    public Button CancelButton;
     // Use this for initialization
     void Start () {
-        gameObject.SetActive(false);
+        
     }
 	
 	// Update is called once per frame
@@ -14,8 +15,8 @@ public class SignoutController : MonoBehaviour {
 	
 	}
 
-    public void ShowSignOutPopup()
+    public void OnClickCancelButton()
     {
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

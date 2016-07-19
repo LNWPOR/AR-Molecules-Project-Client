@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class SignOutButton : MonoBehaviour {
 
-    public GameObject messageBoxPanel;
-    private MessageBoxController messageBoxControllerScript;
+    //public GameObject messageBoxPanel;
+    //private MessageBoxController messageBoxControllerScript;
 
     void Awake()
     {
-        messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
+        //messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
     }
 
     void Start () {
@@ -30,13 +30,14 @@ public class SignOutButton : MonoBehaviour {
     private void OnUserSignOut(SocketIOEvent evt)
     {
         //Debug.Log(evt.data);
-        Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
-        messageBoxPanel.SetActive(true);
-        messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
-        StartCoroutine(WaitMessageSuccessSignOut(1f));
-    }
+        //Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
+        //messageBoxPanel.SetActive(true);
+        //messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
+        //StartCoroutine(WaitMessageSuccessSignOut(1f));
+		SceneManager.LoadScene("signin");
+	}
 
-    private IEnumerator WaitMessageSuccessSignOut(float time)
+ /*   private IEnumerator WaitMessageSuccessSignOut(float time)
     {
         float count = 0;
         while (count < time)
@@ -45,6 +46,7 @@ public class SignOutButton : MonoBehaviour {
             // Debug.Log(Mathf.Floor(count));
             yield return new WaitForEndOfFrame();
         }
-        SceneManager.LoadScene("signin");
+		SceneManager.LoadScene("signin");
     }
+ */
 }
