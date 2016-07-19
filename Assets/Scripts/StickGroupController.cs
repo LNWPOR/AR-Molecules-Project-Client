@@ -5,6 +5,7 @@ public class StickGroupController : MonoBehaviour {
     private GameObject bondPanelParent;
     private GameObject bondPanel;
     private BondPanelController bondPanelControllerScript;
+    private bool canClick = false;
 
     void Start () {
         GetBondPanel();
@@ -13,22 +14,29 @@ public class StickGroupController : MonoBehaviour {
     private void GetBondPanel()
     {
         bondPanelParent = GameObject.Find("BondPanelParent");
-        Transform bondPanelParentChilds = bondPanelParent.GetComponentInChildren<Transform>();
-        foreach (Transform bondPanelParentChild in bondPanelParentChilds)
+        if (bondPanelParent != null)
         {
-            if (bondPanelParentChild.gameObject.name.Equals("BondPanel"))
+            canClick = true;
+            Transform bondPanelParentChilds = bondPanelParent.GetComponentInChildren<Transform>();
+            foreach (Transform bondPanelParentChild in bondPanelParentChilds)
             {
-                bondPanel = bondPanelParentChild.gameObject;
-                bondPanelControllerScript = bondPanel.GetComponent<BondPanelController>();
+                if (bondPanelParentChild.gameObject.name.Equals("BondPanel"))
+                {
+                    bondPanel = bondPanelParentChild.gameObject;
+                    bondPanelControllerScript = bondPanel.GetComponent<BondPanelController>();
+                }
             }
         }
     }
 
     void OnMouseDown()
     {
-        bondPanel.SetActive(true);
-        bondPanelControllerScript.currentEditStickGroup = gameObject;
-        gameObject.transform.parent.gameObject.SetActive(false);
+        if (canClick)
+        {
+            bondPanel.SetActive(true);
+            bondPanelControllerScript.currentEditStickGroup = gameObject;
+            gameObject.transform.parent.gameObject.SetActive(false);
+        }
     }
 
 }

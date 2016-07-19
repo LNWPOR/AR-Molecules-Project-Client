@@ -47,7 +47,7 @@ public class SaveSceneButton : MonoBehaviour
         if(nameInputField.text.Length != 0)
         {
             isEmpty = false;
-            Debug.Log("have a molecule name");
+            //Debug.Log("have a molecule name");
         }
     }
 
