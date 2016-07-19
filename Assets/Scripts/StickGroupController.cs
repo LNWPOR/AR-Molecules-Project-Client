@@ -5,7 +5,7 @@ public class StickGroupController : MonoBehaviour {
     private GameObject bondPanel;
 
     // Use this for initialization
-    void Start () {
+    void start () {
         bondPanel = GameObject.Find("BondPanel");
 
     }
