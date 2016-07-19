@@ -25,7 +25,7 @@ public class StickGroupController : MonoBehaviour {
     void OnMouseDown()
     {
         bondPanel.SetActive(true);
-        gameObject.transform.parent.position = new Vector3( gameObject.transform.parent.position.x,
+        gameObject.transform.parent.position = new Vector3(gameObject.transform.parent.position.x,
                                                             gameObject.transform.parent.position.y,
                                                             gameObject.transform.parent.position.z + 100f);
     }
