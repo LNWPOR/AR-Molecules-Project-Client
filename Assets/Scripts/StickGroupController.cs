@@ -33,10 +33,16 @@ public class StickGroupController : MonoBehaviour {
     {
         if (canClick)
         {
+            Debug.Log("stickgroup is clicked");
             bondPanel.SetActive(true);
             bondPanelControllerScript.currentEditStickGroup = gameObject;
             gameObject.transform.parent.gameObject.SetActive(false);
         }
+        else if(!canClick)
+        {
+            Debug.Log("CanClick = false");
+        }
+        Debug.Log("gg");
     }
 
 }
