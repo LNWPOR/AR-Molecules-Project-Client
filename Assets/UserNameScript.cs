@@ -18,7 +18,7 @@ public class UserNameScript : MonoBehaviour {
 
     void OnMouseDown()
     {
-        Debug.Log("eiei");
+        //Debug.Log("eiei");
         CallSignOutPopup();
         
     }

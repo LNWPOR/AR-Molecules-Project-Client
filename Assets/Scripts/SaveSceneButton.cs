@@ -75,30 +75,32 @@ public class SaveSceneButton : MonoBehaviour
 
     private void OnSaved(SocketIOEvent evt)
     {
+        messageBoxPanel = GameObject.Find("MessageBoxPanel");
+        messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
+
         if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
         {
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
-            StartCoroutine(WaitMessageSuccessSave(1f));
+            messageBoxControllerScript.nextSceneName = "test";
+            messageBoxControllerScript.ShowMessageBox(Converter.JsonToString(evt.data.GetField("log").ToString()));
+            //StartCoroutine(WaitMessageSuccessSave(1f));
 
         }
         else if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
         {
             Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
+            messageBoxControllerScript.ShowMessageBox(Converter.JsonToString(evt.data.GetField("log").ToString()));
         }
     }
 
-    private IEnumerator WaitMessageSuccessSave(float time)
-    {
-        float count = 0;
-        while (count < time)
-        {
-            count += Time.deltaTime;
-            // Debug.Log(Mathf.Floor(count));
-            yield return new WaitForEndOfFrame();
-        }
-        SceneManager.LoadScene("test");
-    }
+    //private IEnumerator WaitMessageSuccessSave(float time)
+    //{
+    //    float count = 0;
+    //    while (count < time)
+    //    {
+    //        count += Time.deltaTime;
+    //        // Debug.Log(Mathf.Floor(count));
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //    SceneManager.LoadScene("test");
+    //}
 }

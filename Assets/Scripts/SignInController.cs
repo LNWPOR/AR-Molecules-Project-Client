@@ -18,11 +18,14 @@ public class SignInController : MonoBehaviour
     public GameObject messageBoxPanel;
     private MessageBoxController messageBoxControllerScript;
 
+
     void Awake()
     {
         GetSocketIO();
+        SocketOn();
         signIpBtn.onClick.AddListener(() => OnClickSignIn());
         signUpBtn.onClick.AddListener(() => OnClickSingUp());
+
         messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
     }
 
@@ -38,6 +41,7 @@ public class SignInController : MonoBehaviour
     void Start()
     {
         SocketOn();
+        
     }
 
     private void SocketOn()
@@ -56,11 +60,13 @@ public class SignInController : MonoBehaviour
     {
         //Debug.Log("ID = " + evt.data.GetField("id").ToString());
         //Debug.Log("USERNAME = " + evt.data.GetField("username").ToString());
+        messageBoxPanel = GameObject.Find("MessageBoxPanel");
+        messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
+
         if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
         {
             Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
+            messageBoxControllerScript.ShowMessageBox(Converter.JsonToString(evt.data.GetField("log").ToString()));
         }
         else if(Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
         {
@@ -69,23 +75,24 @@ public class SignInController : MonoBehaviour
             usrData.username = Converter.JsonToString(evt.data.GetField("username").ToString());
             UserManager.Instance.userData = usrData;
 
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
-            StartCoroutine(WaitMessageSuccessSignIn(1f));
+            messageBoxControllerScript.nextSceneName = "menu";
+            messageBoxControllerScript.ShowMessageBox(Converter.JsonToString(evt.data.GetField("log").ToString()));
+
+            //StartCoroutine(WaitMessageSuccessSignIn(1f));
         }
     }
 
-    private IEnumerator WaitMessageSuccessSignIn(float time)
-    {
-        float count = 0;
-        while (count < time)
-        {
-            count += Time.deltaTime;
-            // Debug.Log(Mathf.Floor(count));
-            yield return new WaitForEndOfFrame();
-        }
-        SceneManager.LoadScene("menu");
-    }
+    //private IEnumerator WaitMessageSuccessSignIn(float time)
+    //{
+    //    float count = 0;
+    //    while (count < time)
+    //    {
+    //        count += Time.deltaTime;
+    //        // Debug.Log(Mathf.Floor(count));
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //    SceneManager.LoadScene("menu");
+    //}
 
 
     private void OnClickSignIn()
@@ -93,8 +100,7 @@ public class SignInController : MonoBehaviour
         if (usernameInputField.text.Equals("") || passwordInputField.text.Equals(""))
         {
             Debug.Log("Please fill username & password");
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = "Please fill username & password";
+            messageBoxControllerScript.ShowMessageBox("Please fill username & password");
         }
         else
         {

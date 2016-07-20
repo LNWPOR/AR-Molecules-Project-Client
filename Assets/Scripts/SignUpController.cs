@@ -42,8 +42,7 @@ public class SignUpController : MonoBehaviour
         if (usernameInputField.text.Equals("") || passwordInputField.text.Equals(""))
         {
             Debug.Log("Please fill username & password");
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = "Please fill username & password";
+            messageBoxControllerScript.ShowMessageBox("Please fill username & password");
         }
         else
         {
@@ -57,17 +56,20 @@ public class SignUpController : MonoBehaviour
 
     private void OnSignUpReady(SocketIOEvent evt)
     {
+        messageBoxPanel = GameObject.Find("MessageBoxPanel");
+        messageBoxControllerScript = messageBoxPanel.GetComponent<MessageBoxController>();
+
         if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(1))
         {
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
-            StartCoroutine(WaitMessageSuccessSignUp(1f));
+            messageBoxControllerScript.nextSceneName = "signin";
+            messageBoxControllerScript.ShowMessageBox(Converter.JsonToString(evt.data.GetField("log").ToString()));
+            
+            //StartCoroutine(WaitMessageSuccessSignUp(1f));
         }
         else if (Convert.ToInt32(evt.data.GetField("status").ToString()).Equals(0))
         {
             Debug.Log(Converter.JsonToString(evt.data.GetField("log").ToString()));
-            messageBoxPanel.SetActive(true);
-            messageBoxControllerScript.messageText.text = Converter.JsonToString(evt.data.GetField("log").ToString());
+            messageBoxControllerScript.ShowMessageBox(Converter.JsonToString(evt.data.GetField("log").ToString()));
         }
     }
     private void OnClickCancel()
@@ -75,15 +77,15 @@ public class SignUpController : MonoBehaviour
         SceneManager.LoadScene("signin");
     }
 
-    private IEnumerator WaitMessageSuccessSignUp(float time)
-    {
-        float count = 0;
-        while (count < time)
-        {
-            count += Time.deltaTime;
-            // Debug.Log(Mathf.Floor(count));
-            yield return new WaitForEndOfFrame();
-        }
-        SceneManager.LoadScene("signin");
-    }
+    //private IEnumerator WaitMessageSuccessSignUp(float time)
+    //{
+    //    float count = 0;
+    //    while (count < time)
+    //    {
+    //        count += Time.deltaTime;
+    //        // Debug.Log(Mathf.Floor(count));
+    //        yield return new WaitForEndOfFrame();
+    //    }
+    //    SceneManager.LoadScene("signin");
+    //}
 }
