@@ -9,7 +9,9 @@ public class BondPanelController : MonoBehaviour {
     public Button doubleBondButton;
     public Button trippleBondButton;
     public Button lonePairButton;
-    public Button delButton;
+    public Button deleteButton; // delete button
+    public Button cancelBnt;
+    public Button delBnt; // delete stick
     public GameObject currentEditStickGroup;
 
     void Awake()
@@ -20,7 +22,12 @@ public class BondPanelController : MonoBehaviour {
         doubleBondButton.onClick.AddListener(() => SetStickGroup("Stick2"));
         trippleBondButton.onClick.AddListener(() => SetStickGroup("Stick3"));
         lonePairButton.onClick.AddListener(() => SetStickGroup("Electron2"));
-        delButton.onClick.AddListener(() => SetStickGroup("del"));
+        delBnt.onClick.AddListener(() => SetStickGroup("del"));
+    }
+
+    void Start()
+    {
+        ShowOrHideConfirmButton(false);
     }
 
     public void OnClickCloseButton()
@@ -59,6 +66,22 @@ public class BondPanelController : MonoBehaviour {
     {
         gameObject.SetActive(false);
         currentEditStickGroup.transform.parent.gameObject.SetActive(true);
+    }
+
+    public void OnClickDeleteButton()
+    {
+        ShowOrHideConfirmButton(true);
+    }
+
+    public void OnClickbCancelButton()
+    {
+        ShowOrHideConfirmButton(false);
+    }
+
+    public void ShowOrHideConfirmButton(bool isShow)
+    {
+        cancelBnt.gameObject.SetActive(isShow);
+        delBnt.gameObject.SetActive(isShow);
     }
 
 }
