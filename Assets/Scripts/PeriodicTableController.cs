@@ -23,6 +23,16 @@ public class PeriodicTableController : MonoBehaviour
     public Transform elementDetailPanel;
 
     private GameObject atomTarget;
+    
+    public GameObject mainCamera;
+    private Vector3 initCameraPosition;
+    private Vector3 currentCameraPosition;
+
+    void Awake()
+    {
+        initCameraPosition = mainCamera.transform.position;
+        currentCameraPosition = mainCamera.transform.position;
+    }
 
     void Start()
     {
@@ -89,6 +99,17 @@ public class PeriodicTableController : MonoBehaviour
         }
         ResetElementDetailPanelText();
         PlayAnimClosePeriodicTable();
+
+        mainCamera.transform.position = currentCameraPosition;
+    }
+
+    public void OpenPeriodicTable()
+    {
+        ResetElementDetailPanelText();
+        PlayAnimOpenPeriodicTable();
+
+        currentCameraPosition = mainCamera.transform.position;
+        mainCamera.transform.position = initCameraPosition;
     }
 
     private void PlayAnimClosePeriodicTable()
@@ -97,11 +118,6 @@ public class PeriodicTableController : MonoBehaviour
         anim.Play("PeriodicTableSlideOut");
         SetShowObject(true);
         //Time.timeScale = 1;
-    }
-    public void OpenPeriodicTable()
-    {
-        ResetElementDetailPanelText();
-        PlayAnimOpenPeriodicTable();
     }
 
     private void PlayAnimOpenPeriodicTable()
