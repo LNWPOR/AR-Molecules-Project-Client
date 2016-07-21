@@ -10,6 +10,7 @@ public class HamburgerButton : MonoBehaviour
     public Button rightArrowButton;
     public Button searchButton;
     public Button testButton;
+    public Text username;
     public GameObject panelMenu;
     //animator reference
     private Animator anim;
@@ -92,6 +93,7 @@ public class HamburgerButton : MonoBehaviour
         leftArrowButton.gameObject.SetActive(setButton);
         rightArrowButton.gameObject.SetActive(setButton);
         testButton.gameObject.SetActive(setButton);
+        username.GetComponent<CapsuleCollider>().enabled = setButton;
     }
 
     private void SetMoleculeHideOrShow(bool setMolecule)

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ConfirmBoxMessage : MonoBehaviour
 {
+    public Text username;
     public Button yesButton;
     public GameObject mainEditMolecule;
     public Button noButton;
@@ -26,6 +27,7 @@ public class ConfirmBoxMessage : MonoBehaviour
         isAnswer = true;
         confirmPanel.SetActive(true);
         SetShowModel(false);
+        SetClickSignOut(false);
     }
 
     public void OnClickYesButton()
@@ -40,10 +42,16 @@ public class ConfirmBoxMessage : MonoBehaviour
         Debug.Log("test");
         confirmPanel.SetActive(false);
         SetShowModel(true);
+        SetClickSignOut(true);
     }
 
     public void SetShowModel(bool isSet)
     {
         mainEditMolecule.SetActive(isSet);
+    }
+    
+    public void SetClickSignOut(bool isSet)
+    {
+        username.GetComponent<CapsuleCollider>().enabled = isSet;
     }
 }
