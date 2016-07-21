@@ -15,9 +15,23 @@ public class StickGroupController : MonoBehaviour {
     private BondPanelController bondPanelControllerScript;
     private bool canClick = false;
 
+    private GameObject mainCamera;
+    private CameraEditorController cameraEditorControllerScript;
+
+
     void Start () {
         GetBondPanel();
         GetSomeButtonAndUsername();
+        GetCameraEditorController();
+    }
+
+    private void GetCameraEditorController()
+    {
+        mainCamera = GameObject.Find("Main Camera"); // Fine (Object in hierarchy)
+        if (mainCamera != null)
+        {
+            cameraEditorControllerScript = mainCamera.GetComponent<CameraEditorController>();
+        }
     }
 
     private void GetSomeButtonAndUsername()
@@ -55,6 +69,7 @@ public class StickGroupController : MonoBehaviour {
             bondPanelControllerScript.currentEditStickGroup = gameObject;
             gameObject.transform.parent.gameObject.SetActive(false);
             SetButtonHideOrShow(false);
+            ControlCameraPosition(false);
         }
     }
 
@@ -65,6 +80,12 @@ public class StickGroupController : MonoBehaviour {
         menuButton.GetComponent<Button>().interactable = setButton;
         searchButton.GetComponent<Button>().interactable = setButton;
         username.GetComponent<CapsuleCollider>().enabled = setButton;
+    }
+
+    public void ControlCameraPosition(bool isSet)
+    {
+        cameraEditorControllerScript.canMove = isSet;
+        cameraEditorControllerScript.canZoom = isSet;
     }
 
 }

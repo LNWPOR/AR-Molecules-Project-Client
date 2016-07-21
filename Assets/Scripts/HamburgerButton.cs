@@ -16,6 +16,9 @@ public class HamburgerButton : MonoBehaviour
     private Animator anim;
     public bool isPop;
 
+    private GameObject mainCamera;
+    private CameraEditorController cameraEditorControllerScript;
+
 
     // Use this for initialization
     void Start()
@@ -27,12 +30,23 @@ public class HamburgerButton : MonoBehaviour
         //disable it on start to stop it from playing the default animation
         anim.enabled = false;
 
+        GetCameraEditorController();
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void GetCameraEditorController()
+    {
+        mainCamera = GameObject.Find("Main Camera"); // Fine (Object in hierarchy)
+        if (mainCamera != null)
+        {
+            cameraEditorControllerScript = mainCamera.GetComponent<CameraEditorController>();
+        }
     }
 
     public void OnClickHambergerButton()
@@ -66,6 +80,7 @@ public class HamburgerButton : MonoBehaviour
         //Time.timeScale = 0;
         SetShowObject(false);
         SetInteractableButton(false);
+        ControlCameraPosition(false);
     }
 
     public void SlideOutEvent()
@@ -78,6 +93,7 @@ public class HamburgerButton : MonoBehaviour
         //Time.timeScale = 0;
         SetShowObject(true);
         SetInteractableButton(true);
+        ControlCameraPosition(true);
 
 
     }
@@ -104,6 +120,12 @@ public class HamburgerButton : MonoBehaviour
     private void SetInteractableButton(bool setButton)
     {
         searchButton.GetComponent<Button>().interactable = setButton;
+    }
+
+    public void ControlCameraPosition(bool isSet)
+    {
+        cameraEditorControllerScript.canMove = isSet;
+        cameraEditorControllerScript.canZoom = isSet;
     }
 
 }

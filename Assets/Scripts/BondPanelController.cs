@@ -10,7 +10,6 @@ public class BondPanelController : MonoBehaviour {
     public Button menuButton;
     public Button searchButton;
 
-
     public Button closeButton;
     public Button singleBondButton;
     public Button doubleBondButton;
@@ -20,6 +19,9 @@ public class BondPanelController : MonoBehaviour {
     public Button cancelBnt;
     public Button delBnt; // delete stick
     public GameObject currentEditStickGroup;
+
+    private GameObject mainCamera;
+    private CameraEditorController cameraEditorControllerScript;
 
     void Awake()
     {
@@ -35,6 +37,16 @@ public class BondPanelController : MonoBehaviour {
     void Start()
     {
         ShowOrHideConfirmButton(false);
+        GetCameraEditorController();
+    }
+
+    private void GetCameraEditorController()
+    {
+        mainCamera = GameObject.Find("Main Camera"); // Fine (Object in hierarchy)
+        if (mainCamera != null)
+        {
+            cameraEditorControllerScript = mainCamera.GetComponent<CameraEditorController>();
+        }
     }
 
     public void OnClickCloseButton()
@@ -68,6 +80,7 @@ public class BondPanelController : MonoBehaviour {
         }
         CloseBondPanel();
         SetButtonHideOrShow(true);
+        ControlCameraPosition(true);
     }
 
     private void CloseBondPanel()
@@ -75,6 +88,7 @@ public class BondPanelController : MonoBehaviour {
         gameObject.SetActive(false);
         currentEditStickGroup.transform.parent.gameObject.SetActive(true);
         SetButtonHideOrShow(true);
+        ControlCameraPosition(true);
     }
 
     public void OnClickDeleteButton()
@@ -102,4 +116,11 @@ public class BondPanelController : MonoBehaviour {
         searchButton.GetComponent<Button>().interactable = setButton;
         username.GetComponent<CapsuleCollider>().enabled = setButton;
     }
+
+    public void ControlCameraPosition(bool isSet)
+    {
+        cameraEditorControllerScript.canMove = isSet;
+        cameraEditorControllerScript.canZoom = isSet;
+    }
+
 }

@@ -14,11 +14,24 @@ public class ConfirmBoxMessage : MonoBehaviour
     public GameObject confirmPanel;
     private bool isAnswer; // yes = true , no = false;
 
+    private GameObject mainCamera;
+    private CameraEditorController cameraEditorControllerScript;
+
     // Use this for initialization
     void Start()
     {
         isAnswer = false;
         confirmPanel.SetActive(false);
+        GetCameraEditorController();
+    }
+
+    private void GetCameraEditorController()
+    {
+        mainCamera = GameObject.Find("Main Camera"); // Fine (Object in hierarchy)
+        if (mainCamera != null)
+        {
+            cameraEditorControllerScript = mainCamera.GetComponent<CameraEditorController>();
+        }
     }
 
     // Update is called once per frame
@@ -28,6 +41,7 @@ public class ConfirmBoxMessage : MonoBehaviour
         confirmPanel.SetActive(true);
         SetShowModel(false);
         SetClickSignOut(false);
+        ControlCameraPosition(false);
     }
 
     public void OnClickYesButton()
@@ -43,6 +57,7 @@ public class ConfirmBoxMessage : MonoBehaviour
         confirmPanel.SetActive(false);
         SetShowModel(true);
         SetClickSignOut(true);
+        ControlCameraPosition(true);
     }
 
     public void SetShowModel(bool isSet)
@@ -53,5 +68,11 @@ public class ConfirmBoxMessage : MonoBehaviour
     public void SetClickSignOut(bool isSet)
     {
         username.GetComponent<CapsuleCollider>().enabled = isSet;
+    }
+
+    public void ControlCameraPosition(bool isSet)
+    {
+        cameraEditorControllerScript.canMove = isSet;
+        cameraEditorControllerScript.canZoom = isSet;
     }
 }
