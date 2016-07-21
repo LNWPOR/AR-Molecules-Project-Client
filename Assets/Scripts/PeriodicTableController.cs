@@ -13,7 +13,6 @@ public class PeriodicTableController : MonoBehaviour
     public Button nextButton;
     public Button leftArrowButton;
     public Button rightArrowButton;
-    public Text username;
     private Animator anim;
     private bool periodicTablePanelIsShow = false;
 
@@ -23,8 +22,9 @@ public class PeriodicTableController : MonoBehaviour
     public Transform elementDetailPanel;
 
     private GameObject atomTarget;
-    
+
     public GameObject mainCamera;
+    private CameraEditorController mainCameraScript;
     private Vector3 initCameraPosition;
     private Vector3 currentCameraPosition;
 
@@ -32,6 +32,7 @@ public class PeriodicTableController : MonoBehaviour
     {
         initCameraPosition = mainCamera.transform.position;
         currentCameraPosition = mainCamera.transform.position;
+        mainCameraScript = mainCamera.GetComponent<CameraEditorController>();
     }
 
     void Start()
@@ -101,6 +102,8 @@ public class PeriodicTableController : MonoBehaviour
         PlayAnimClosePeriodicTable();
 
         mainCamera.transform.position = currentCameraPosition;
+        mainCameraScript.canMove = true;
+        mainCameraScript.canZoom = true;
     }
 
     public void OpenPeriodicTable()
@@ -110,6 +113,8 @@ public class PeriodicTableController : MonoBehaviour
 
         currentCameraPosition = mainCamera.transform.position;
         mainCamera.transform.position = initCameraPosition;
+        mainCameraScript.canMove = false;
+        mainCameraScript.canZoom = false;
     }
 
     private void PlayAnimClosePeriodicTable()
@@ -153,7 +158,6 @@ public class PeriodicTableController : MonoBehaviour
         nextButton.gameObject.SetActive(setButton);
         leftArrowButton.gameObject.SetActive(setButton);
         rightArrowButton.gameObject.SetActive(setButton);
-        username.GetComponent<CapsuleCollider>().enabled = setButton;
     }
 
     private void SetMoleculeHideOrShow(bool setMolecule)

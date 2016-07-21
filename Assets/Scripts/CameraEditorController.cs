@@ -9,6 +9,9 @@ public class CameraEditorController : MonoBehaviour {
 
     public float moveSpeed;
 
+    public bool canMove;
+    public bool canZoom;
+
     void Awake()
     {
         zoomSpeed = 0.1f;
@@ -16,6 +19,9 @@ public class CameraEditorController : MonoBehaviour {
         minZoomZ = -7f;
 
         moveSpeed = 0.05f;
+
+        canMove = true;
+        canZoom = true;
     }
 
     void Update()
@@ -39,7 +45,8 @@ public class CameraEditorController : MonoBehaviour {
             float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
             if (transform.position.z + deltaMagnitudeDiff * zoomSpeed >= maxZoomZ && 
-                transform.position.z + deltaMagnitudeDiff * zoomSpeed <= minZoomZ)
+                transform.position.z + deltaMagnitudeDiff * zoomSpeed <= minZoomZ &&
+                canZoom)
             {
                 transform.position = new Vector3(transform.position.x,
                                              transform.position.y,
@@ -47,7 +54,7 @@ public class CameraEditorController : MonoBehaviour {
             }
         }
 
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved && canMove)
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
             transform.Translate(-touchDeltaPosition.x * moveSpeed, -touchDeltaPosition.y * moveSpeed, 0);
