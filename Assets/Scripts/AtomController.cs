@@ -42,7 +42,7 @@ public class AtomController : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (canClick)
+        if (canClick && Input.touchCount.Equals(1))
         {
             TurnOffOnClickAllAtom();
             periodicTableControllerScript.OpenPeriodicTable();
