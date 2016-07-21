@@ -4,10 +4,11 @@ using System.Collections;
 public class UserNameScript : MonoBehaviour {
 
     public GameObject signoutPanel;
-    
+    public GameObject mainEditMolecule;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         signoutPanel.SetActive(false);
 	}
 	
@@ -20,12 +21,20 @@ public class UserNameScript : MonoBehaviour {
     {
         //Debug.Log("eiei");
         CallSignOutPopup();
-        
+        SetShowModel(false);
+
     }
 
 
     public void CallSignOutPopup()
     {
         signoutPanel.SetActive(true);
+        
+    }
+
+
+    public void SetShowModel(bool isSet)
+    {
+        mainEditMolecule.SetActive(isSet);
     }
 }
