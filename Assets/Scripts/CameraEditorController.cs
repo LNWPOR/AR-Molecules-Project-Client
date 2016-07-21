@@ -38,8 +38,8 @@ public class CameraEditorController : MonoBehaviour {
             Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
             // Find the magnitude of the vector (the distance) between the touches in each frame.
-            float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-            float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+            float prevTouchDeltaMag = (touchOnePrevPos - touchZeroPrevPos).magnitude;
+            float touchDeltaMag = (touchOne.position - touchZero.position).magnitude;
 
             // Find the difference in the distances between each frame.
             float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;

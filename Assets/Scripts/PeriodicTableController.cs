@@ -13,6 +13,7 @@ public class PeriodicTableController : MonoBehaviour
     public Button nextButton;
     public Button leftArrowButton;
     public Button rightArrowButton;
+    public Text username;
     private Animator anim;
     private bool periodicTablePanelIsShow = false;
 
@@ -158,6 +159,7 @@ public class PeriodicTableController : MonoBehaviour
         nextButton.gameObject.SetActive(setButton);
         leftArrowButton.gameObject.SetActive(setButton);
         rightArrowButton.gameObject.SetActive(setButton);
+        username.GetComponent<CapsuleCollider>().enabled = setButton;
     }
 
     private void SetMoleculeHideOrShow(bool setMolecule)

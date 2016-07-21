@@ -5,6 +5,12 @@ using System.Collections;
 public class BondPanelController : MonoBehaviour {
 
     public Text username;
+    public Button leftArrowButton;
+    public Button rightArrowButton;
+    public Button menuButton;
+    public Button searchButton;
+
+
     public Button closeButton;
     public Button singleBondButton;
     public Button doubleBondButton;
@@ -61,14 +67,14 @@ public class BondPanelController : MonoBehaviour {
             }
         }
         CloseBondPanel();
-        SetClickSignOut(true);
+        SetButtonHideOrShow(true);
     }
 
     private void CloseBondPanel()
     {
         gameObject.SetActive(false);
         currentEditStickGroup.transform.parent.gameObject.SetActive(true);
-        SetClickSignOut(true);
+        SetButtonHideOrShow(true);
     }
 
     public void OnClickDeleteButton()
@@ -88,8 +94,12 @@ public class BondPanelController : MonoBehaviour {
     }
 
 
-    public void SetClickSignOut(bool isSet)
+    private void SetButtonHideOrShow(bool setButton)
     {
-        username.GetComponent<CapsuleCollider>().enabled = isSet;
+        leftArrowButton.GetComponent<Button>().interactable = setButton;
+        rightArrowButton.GetComponent<Button>().interactable = setButton;
+        menuButton.GetComponent<Button>().interactable = setButton;
+        searchButton.GetComponent<Button>().interactable = setButton;
+        username.GetComponent<CapsuleCollider>().enabled = setButton;
     }
 }

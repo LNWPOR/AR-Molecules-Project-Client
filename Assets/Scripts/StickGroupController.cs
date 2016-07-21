@@ -5,18 +5,28 @@ public class StickGroupController : MonoBehaviour {
 
     private GameObject bondPanelParent;
     private GameObject bondPanel;
+
     private Text username;
+    private Button leftArrowButton;
+    private Button rightArrowButton;
+    private Button searchButton;
+    private Button menuButton;
+
     private BondPanelController bondPanelControllerScript;
     private bool canClick = false;
 
     void Start () {
         GetBondPanel();
-        GetUsername();
+        GetSomeButtonAndUsername();
     }
 
-    private void GetUsername()
+    private void GetSomeButtonAndUsername()
     {
         username = GameObject.Find("Username").GetComponent<Text>();
+        leftArrowButton = GameObject.Find("LeftArrowButton").GetComponent<Button>();
+        rightArrowButton = GameObject.Find("RightArrowButton").GetComponent<Button>();
+        searchButton = GameObject.Find("SearchButton").GetComponent<Button>();
+        menuButton = GameObject.Find("MenuButton").GetComponent<Button>();
     }
 
     private void GetBondPanel()
@@ -44,8 +54,17 @@ public class StickGroupController : MonoBehaviour {
             bondPanel.SetActive(true);
             bondPanelControllerScript.currentEditStickGroup = gameObject;
             gameObject.transform.parent.gameObject.SetActive(false);
-            username.GetComponent<CapsuleCollider>().enabled = false;
+            SetButtonHideOrShow(false);
         }
+    }
+
+    private void SetButtonHideOrShow(bool setButton)
+    {
+        leftArrowButton.GetComponent<Button>().interactable = setButton;
+        rightArrowButton.GetComponent<Button>().interactable = setButton;
+        menuButton.GetComponent<Button>().interactable = setButton;
+        searchButton.GetComponent<Button>().interactable = setButton;
+        username.GetComponent<CapsuleCollider>().enabled = setButton;
     }
 
 }
