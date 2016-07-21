@@ -42,7 +42,7 @@ public class CameraEditorController : MonoBehaviour {
             float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
             // Find the difference in the distances between each frame.
-            float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+            float deltaMagnitudeDiff = touchDeltaMag - prevTouchDeltaMag;
 
             if (transform.position.z + deltaMagnitudeDiff * zoomSpeed >= maxZoomZ && 
                 transform.position.z + deltaMagnitudeDiff * zoomSpeed <= minZoomZ &&
