@@ -20,8 +20,8 @@ public class CameraEditorController : MonoBehaviour {
 
         moveSpeed = 0.05f;
 
-        canMove = true;
-        canZoom = true;
+        canMove = false;
+        canZoom = false;
     }
 
     void Update()

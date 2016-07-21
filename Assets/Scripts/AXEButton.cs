@@ -11,9 +11,21 @@ public class AXEButton : MonoBehaviour {
 
     private bool hide = true;
 
+    private GameObject mainCamera;
+    private CameraEditorController cameraEditorControllerScript;
 
     void Start () {
         GetHamburgerButton();
+        GetCameraEditorController();
+    }
+
+    private void GetCameraEditorController()
+    {
+        mainCamera = GameObject.Find("Main Camera"); // Fine (Object in hierarchy)
+        if (mainCamera != null)
+        {
+            cameraEditorControllerScript = mainCamera.GetComponent<CameraEditorController>();
+        }
     }
 
     private void GetHamburgerButton()
@@ -30,6 +42,8 @@ public class AXEButton : MonoBehaviour {
         DestroyMainEditMoleculeChilds();
         AddMainEditMoleculeChilds();
         hamburgerButtonScript.PopUpPanelSlide(hide);
+        cameraEditorControllerScript.canMove = true;
+        cameraEditorControllerScript.canZoom = true;
     }
 
     private void DestroyMainEditMoleculeChilds()
