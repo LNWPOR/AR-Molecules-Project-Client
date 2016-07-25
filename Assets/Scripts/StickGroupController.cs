@@ -69,7 +69,7 @@ public class StickGroupController : MonoBehaviour {
 
     void OnMouseDown()
     {
-        if (canClick /*&& Input.touchCount.Equals(1)*/)
+        if (canClick && Input.touchCount.Equals(1))
         {
             bondPanel.SetActive(true);
             bondPanelControllerScript.currentEditStickGroup = gameObject;
