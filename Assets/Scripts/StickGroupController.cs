@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 public class StickGroupController : MonoBehaviour {
 
     private GameObject bondPanelParent;
@@ -36,11 +38,15 @@ public class StickGroupController : MonoBehaviour {
 
     private void GetSomeButtonAndUsername()
     {
-        username = GameObject.Find("Username").GetComponent<Text>();
-        leftArrowButton = GameObject.Find("LeftArrowButton").GetComponent<Button>();
-        rightArrowButton = GameObject.Find("RightArrowButton").GetComponent<Button>();
-        searchButton = GameObject.Find("SearchButton").GetComponent<Button>();
-        menuButton = GameObject.Find("MenuButton").GetComponent<Button>();
+        if (SceneManager.GetActiveScene().name.Equals("Editor"))
+        {
+            username = GameObject.Find("Username").GetComponent<Text>();
+            leftArrowButton = GameObject.Find("LeftArrowButton").GetComponent<Button>();
+            rightArrowButton = GameObject.Find("RightArrowButton").GetComponent<Button>();
+            searchButton = GameObject.Find("SearchButton").GetComponent<Button>();
+            menuButton = GameObject.Find("MenuButton").GetComponent<Button>();
+        }
+        
     }
 
     private void GetBondPanel()

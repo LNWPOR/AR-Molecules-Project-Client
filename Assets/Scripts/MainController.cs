@@ -75,7 +75,7 @@ public class MainController : MonoBehaviour
             if (Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("Atom"))
             {
                 //Debug.Log(moleculeObjectName + " : " + moleculeObjectPosition + " : " + moleculeObjectRotation);
-                modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule, false);
+                modelGeneratorScript.GenerateAtom(moleculeObjectName, moleculeObjectPosition, moleculeObjectRotation, mainMolecule, false, true);
             }
             else if (Converter.JsonToString(MainManager.Instance.moleculeJSONSelected.GetField("moleculeObjectsList")[i].GetField("tag").ToString()).Equals("StickGroup"))
             {
