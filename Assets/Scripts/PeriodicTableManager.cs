@@ -20,7 +20,7 @@ public class PeriodicTableManager : MonoBehaviour {
     {
         periodicTableList = new List<ElementData>();
         //atomName,groupNumber,atomNumber,mass==-1,en=-1
-        AddElementToPeriodicTableList("H", 1, "A", 1, 1.008f, -1f);
+        AddElementToPeriodicTableList("H", 1, "A", 1, 1.008f, 2.2f);
         AddElementToPeriodicTableList("Li", 1, "A", 3, 6.941f, 0.98f);
         AddElementToPeriodicTableList("Na", 1, "A", 11, 22.990f, 0.93f);
         AddElementToPeriodicTableList("K", 1, "A", 19, 39.098f, 0.82f);
