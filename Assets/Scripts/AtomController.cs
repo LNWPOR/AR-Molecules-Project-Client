@@ -78,14 +78,14 @@ public class AtomController : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (canClick && Input.touchCount.Equals(1))
+        if (canClick || Input.touchCount.Equals(1))
         {
             TurnOffOnClickAllAtom();
             periodicTableControllerScript.OpenPeriodicTable();
             periodicTableControllerScript.SetAtomTarget(gameObject);
         }
 
-        if (canShowPanel && Input.touchCount.Equals(1))
+        if (canShowPanel || Input.touchCount.Equals(1))
         {
             GameObject detailPanel = GameObject.Find("DetailPanel");
             Array.Find(detailPanel.GetComponentsInChildren<Text>(), s => s.name.Equals("AtomNameText")).text = " Name : " + elementDetail.name;
