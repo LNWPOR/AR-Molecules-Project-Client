@@ -1,5 +1,6 @@
 # AR-Molecules-Project-Client
-This is a project for index the web that craw from crawler (https://github.com/LNWPOR/HwWs1-WebCrawler) program.
+This is a project for internship at NARA in 2016.
+This project is a AR Application about Chemical Education.
 
 ## Implemented by
 * Unity Game Engine 32 bit
